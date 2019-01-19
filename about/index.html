@@ -99,13 +99,14 @@
   <meta name="description" content="KThirty">
 <meta name="keywords" content="KThirty">
 <meta property="og:type" content="website">
-<meta property="og:title" content="KThirty">
-<meta property="og:url" content="http://yoursite.com/tags/前端/index.html">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="KThirty">
 <meta property="og:description" content="KThirty">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-19T14:46:30.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KThirty">
+<meta name="twitter:title" content="about">
 <meta name="twitter:description" content="KThirty">
 
 
@@ -113,7 +114,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/前端/">
+  <link rel="canonical" href="http://yoursite.com/about/">
 
 
 
@@ -123,7 +124,7 @@
   };
 </script>
 
-  <title>标签: 前端 | KThirty</title>
+  <title>about | KThirty</title>
   
 
 
@@ -171,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -230,7 +231,7 @@
         
         
           
-          <li class="menu-item menu-item-about">
+          <li class="menu-item menu-item-about menu-item-active">
 
     
     
@@ -247,7 +248,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -358,56 +359,63 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>前端<small>标签</small>
-        </h1>
-      </div>
+<h1 class="post-title" itemprop="name headline">about
+
+</h1>
+
+<div class="post-meta">
+  
+  
+
+
+
+</div>
+
+</header>
 
       
+      
+      
+      <div class="post-body">
         
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-          <a class="post-title-link" href="/2018/08/02/前端/前端架构整合/" itemprop="url">
-            
-              <span itemprop="name">前端架构整合</span>
-            
-          </a>
+          
         
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-02T21:17:40+08:00" content="2018-08-02">
-          08-02
-        </time>
       </div>
-
-    </header>
-  </article>
-
-
+      
+      
       
     </div>
+    
 
+
+
+    
+    
+    
   </div>
-  
-  
-  
-
-  
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -661,6 +669,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -671,6 +683,49 @@
 
   
 
+
+  
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<style>
+#gitment-container a {
+  border-bottom: none;
+}
+
+</style>
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'kthirty',
+      repo: 'https://github.com/kthirty',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: '87a7d73182103d58c4759e50765c151f40744da6',
+      
+        client_id: 'cd1f55cc8b9dd95084a6'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
+
+  
 
 
   
