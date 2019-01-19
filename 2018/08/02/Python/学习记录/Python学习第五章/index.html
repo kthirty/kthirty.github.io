@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Python学习第五章-高级函数">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习第五章">
+<meta property="og:url" content="http://yoursite.com/2018/08/02/Python/学习记录/Python学习第五章/index.html">
+<meta property="og:site_name" content="KThirty">
+<meta property="og:description" content="Python学习第五章-高级函数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-19T16:38:34.144Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python学习第五章">
+<meta name="twitter:description" content="Python学习第五章-高级函数">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/02/Python/学习记录/Python学习第五章/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python学习第五章 | KThirty</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KThirty</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个后端程序猿的技术杂记</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/kthirty" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/Python/学习记录/Python学习第五章/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KThirty">
+      <meta itemprop="description" content="KThirty">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KThirty">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python学习第五章
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-02 22:14:13" itemprop="dateCreated datePublished" datetime="2018-08-02T22:14:13+08:00">2018-08-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-20 00:38:34" itemprop="dateModified" datetime="2019-01-20T00:38:34+08:00">2019-01-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <a href="/2018/08/02/Python/学习记录/Python学习第五章/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/02/Python/学习记录/Python学习第五章/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            <div class="post-description">Python学习第五章-高级函数</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="高级函数"><a href="#高级函数" class="headerlink" title="高级函数"></a>高级函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">from _functools import reduce</span><br><span class="line"># 4.1.1 函数指向</span><br><span class="line">print(abs(-1))</span><br><span class="line">aa = abs#将aa指向abs函数</span><br><span class="line">print(aa(-2))</span><br><span class="line">def add(a,b,f):</span><br><span class="line">    return f(a)+f(b)</span><br><span class="line">print(add(-1,3,abs))</span><br><span class="line">print(&quot;----------内置的map函数 -------------&quot;)</span><br><span class="line"># 4.1.2-----------内置的map函数</span><br><span class="line"># 举例说明，比如我们有一个函数f(x)=x*x，要把这个函数作用在一个list [1, 2, 3, 4, 5, 6, 7, 8, 9]上，就可以用map()实现如下：</span><br><span class="line">def f(x):</span><br><span class="line">    return x*x</span><br><span class="line">l = range(10)</span><br><span class="line">for x in map(f,l):</span><br><span class="line">    print(x)</span><br><span class="line">print(&quot;----------内置的reduce函数 -------------&quot;)</span><br><span class="line"># 4.1.3----------内置的reduce函数 reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)</span><br><span class="line">#比方说对一个序列求和，就可以用reduce实现：</span><br><span class="line">def add1(a,b):</span><br><span class="line">    return a+b</span><br><span class="line">s = reduce(add1,range(10))</span><br><span class="line">print(s)</span><br><span class="line"># 在不使用int函数的前提下将：但是如果要把序列[1, 3, 5, 7, 9]变换成整数13579，reduce就可以派上用场</span><br><span class="line">def _a(a,b):</span><br><span class="line">    return a*10+b;</span><br><span class="line">l = [1,3,5,7,9]</span><br><span class="line">print(reduce(_a,l))</span><br><span class="line"># 在不使用int函数的前提下将str转换为int，使用map函数将13579转换为[1,3,5,7,9]</span><br><span class="line">DIGITS = &#123;&apos;0&apos;: 0,&apos;1&apos;: 1,&apos;2&apos;: 2,&apos;3&apos;:3,&apos;4&apos;:4,&apos;5&apos;:5,&apos;6&apos;:6,&apos;7&apos;:7,&apos;8&apos;:8,&apos;9&apos;:9&#125;</span><br><span class="line">def char2num(c):</span><br><span class="line">    return DIGITS.get(c)</span><br><span class="line">print(reduce(_a,map(char2num,&apos;13579&apos;)))</span><br><span class="line"># 本节作业利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：[&apos;adam&apos;, &apos;LISA&apos;, &apos;barT&apos;]，输出：[&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;]：</span><br><span class="line">def normalize(name):</span><br><span class="line">    return name[0].upper()+name[1:].lower()</span><br><span class="line">L1 = [&apos;adam&apos;, &apos;LISA&apos;, &apos;barT&apos;]</span><br><span class="line">L2 = list(map(normalize, L1))</span><br><span class="line">print(L2)</span><br><span class="line"></span><br><span class="line">#本节作业2 Python提供的sum()函数可以接受一个list并求和，请编写一个prod()函数，可以接受一个list并利用reduce()求积：</span><br><span class="line">def fn1(a,b):</span><br><span class="line">    return a*b</span><br><span class="line">def prod(L):</span><br><span class="line">    return reduce(fn1, L)</span><br><span class="line">print(&apos;3 * 5 * 7 * 9 =&apos;, prod([3, 5, 7, 9]))</span><br><span class="line">if prod([3, 5, 7, 9]) == 945:</span><br><span class="line">    print(&apos;测试成功!&apos;)</span><br><span class="line">else:</span><br><span class="line">    print(&apos;测试失败!&apos;)</span><br><span class="line"># 本节作业3  利用map和reduce编写一个str2float函数，把字符串&apos;123.456&apos;转换成浮点数123.456：</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">分析</span><br><span class="line">1：.是没办法处理的，所以记录.的位置，计算之后再除以10的相应次方以添加小数点</span><br><span class="line">2：要想计算，必须要将str转为num  ， 使用map函数</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">def str2float(s):</span><br><span class="line">    dIndex = s.index(&quot;.&quot;)</span><br><span class="line">    p = pow(10,len(s)-dIndex-1)</span><br><span class="line">    def fn(a,b):</span><br><span class="line">        return a*10+b</span><br><span class="line">    def char2num(c):</span><br><span class="line">        return &#123;&apos;0&apos;: 0, &apos;1&apos;: 1, &apos;2&apos;: 2, &apos;3&apos;: 3, &apos;4&apos;: 4, &apos;5&apos;: 5, &apos;6&apos;: 6, &apos;7&apos;: 7, &apos;8&apos;: 8, &apos;9&apos;: 9&#125;.get(c)</span><br><span class="line">    return reduce(fn,map(char2num,s.replace(&quot;.&quot;,&quot;&quot;)))/p</span><br><span class="line">print(&apos;str2float(\&apos;123.456\&apos;) =&apos;, str2float(&apos;123.456&apos;))</span><br><span class="line">if abs(str2float(&apos;123.456&apos;) - 123.456) &lt; 0.00001:</span><br><span class="line">    print(&apos;测试成功!&apos;)</span><br><span class="line">else:</span><br><span class="line">    print(&apos;测试失败!&apos;)</span><br><span class="line"># 4.1.3 内置过滤序列 filter()</span><br><span class="line"># 和map类似，也是接受一个list，不同的是，filter根据返回值是True还是False决定保留函数还是丢弃函数</span><br><span class="line"># 例如，在一个list中，删掉偶数，只保留奇数，可以这么写：</span><br><span class="line">def fn2(n):</span><br><span class="line">    return n%2==0</span><br><span class="line">list1 = filter(fn2,range(11))</span><br><span class="line">list2 = [x for x in range(11) if x%2==0 ]</span><br><span class="line"></span><br><span class="line"># python实现素数序列</span><br><span class="line">def _odd_iter():</span><br><span class="line">    n = 1</span><br><span class="line">    while True:</span><br><span class="line">        n = n + 2</span><br><span class="line">        yield n</span><br><span class="line">def _not_divisible(n):</span><br><span class="line">    return lambda x: x % n &gt; 0</span><br><span class="line">&apos;&apos;&apos; 上面的函数，如果传入3 返回</span><br><span class="line">def fn(x):</span><br><span class="line">    return x % 3 &gt; 0</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">def primes():</span><br><span class="line">    yield 2</span><br><span class="line">    it = _odd_iter() # 初始序列</span><br><span class="line">    while True:</span><br><span class="line">        n = next(it) # 返回序列的第一个数</span><br><span class="line">        yield n</span><br><span class="line">        it = filter(_not_divisible(n), it) # 构造新序列</span><br><span class="line"># 打印1000以内的素数:</span><br><span class="line"># for n in primes():</span><br><span class="line">#     if n &lt; 1000:</span><br><span class="line">#         pass</span><br><span class="line">#         #print(n)</span><br><span class="line">#     else:</span><br><span class="line">#         break</span><br><span class="line"># 练习 回数是指从左向右读和从右向左读都是一样的数，例如12321，909。请利用filter()筛选出回数：</span><br><span class="line">def is_palindrome(n):</span><br><span class="line">    s = str(n)</span><br><span class="line">    while True:</span><br><span class="line">        i = 0</span><br><span class="line">        if(s[i] != s[-i]):</span><br><span class="line">            return False</span><br><span class="line">        if(i == len(s)/2):</span><br><span class="line">            break</span><br><span class="line">        if(i == len(s)/2+1):</span><br><span class="line">            break</span><br><span class="line">        i = i + 1</span><br><span class="line">    return True;</span><br><span class="line"># output = filter(is_palindrome, range(1, 1000))</span><br><span class="line"># print(&apos;1~1000:&apos;, list(output))</span><br><span class="line"># if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 111, 121, 131, 141, 151, 161, 171, 181, 191]:</span><br><span class="line">#     print(&apos;测试成功!&apos;)</span><br><span class="line"># else:</span><br><span class="line">#     print(&apos;测试失败!&apos;)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">方案一:</span><br><span class="line">def is_palindrome(n):</span><br><span class="line">    nn = str(n) #转成字符串</span><br><span class="line">    return nn == nn[::-1] #反转字符串并对比原字符串返回true/false</span><br><span class="line">print list(filter(is_palindrome,range(1,1000)))</span><br><span class="line">方案二：</span><br><span class="line">print list(filter(lambda n : str(n)==str(n)[::-1],range(1,1000))) #str(n)同上</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"># 4.1.4 sorted 函数</span><br><span class="line">L = [36, 5, -12, 9, -21]</span><br><span class="line"></span><br><span class="line"># print(sorted(L))</span><br><span class="line"># 此外，sorted()函数也是一个高阶函数，它还可以接收一个key函数来实现自定义的排序，例如按绝对值大小排序：</span><br><span class="line"># print(sorted(L,key=abs))</span><br><span class="line">print(sorted([&apos;bob&apos;, &apos;about&apos;, &apos;Zoo&apos;, &apos;Credit&apos;]))</span><br><span class="line">print(sorted([&apos;bob&apos;, &apos;about&apos;, &apos;Zoo&apos;, &apos;Credit&apos;],key=str.lower))</span><br><span class="line">print(sorted([&apos;bob&apos;, &apos;about&apos;, &apos;Zoo&apos;, &apos;Credit&apos;],key=str.lower,reverse=True))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 练习 假设我们用一组tuple表示学生名字和成绩：</span><br><span class="line">L = [(&apos;Bob&apos;, 75), (&apos;Adam&apos;, 92), (&apos;Bart&apos;, 66), (&apos;Lisa&apos;, 88)]</span><br><span class="line">#请用sorted()对上述列表分别按名字排序：</span><br><span class="line">def by_name(t):</span><br><span class="line">    return t[0].lower()</span><br><span class="line">L2 = sorted(L, key=by_name)</span><br><span class="line">print(L2)</span><br><span class="line">L2 = sorted(L, key= lambda x:x[0].lower())</span><br><span class="line">print(L2)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h2><p><strong>高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回。</strong><br><strong>我们来实现一个可变参数的求和。通常情况下，求和的函数是这样定义的：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">def lazy_sum(*args):</span><br><span class="line">    ax = 0</span><br><span class="line">    for x in args:</span><br><span class="line">        ax = ax + x</span><br><span class="line">    return ax</span><br><span class="line">#但是，如果不需要立刻求和，而是在后面的代码中，根据需要再计算怎么办？可以不返回求和的结果，而是返回求和的函数：</span><br><span class="line">def lazy_sum1(*args):</span><br><span class="line">    def fn():</span><br><span class="line">        ax = 0</span><br><span class="line">        for x in args:</span><br><span class="line">            ax = ax + x</span><br><span class="line">        return ax</span><br><span class="line">    return fn</span><br><span class="line"># 返回一个函数，在需要时调用即可，内部函数可以调用外部函数的属性，这称为“闭包”</span><br><span class="line"># 请再注意一点，当我们调用lazy_sum()时，每次调用都会返回一个新的函数，即使传入相同的参数：</span><br><span class="line">#在这个例子中，我们在函数lazy_sum中又定义了函数sum，并且，内部函数sum可以引用外部函数lazy_sum的参数和局部变量，</span><br><span class="line">#当lazy_sum返回函数sum时，相关参数和变量都保存在返回的函数中，这种称为“闭包（Closure）”的程序结构拥有极大的威力。</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">闭包：</span><br><span class="line">注意到返回的函数在其定义内部引用了局部变量args，所以，当一个函数返回了一个函数后，其内部的局部变量还被新函数引用，</span><br><span class="line">所以，闭包用起来简单，实现起来可不容易。</span><br><span class="line">另一个需要注意的问题是，返回的函数并没有立刻执行，而是直到调用了f()才执行。我们来看一个例子：</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">def count():</span><br><span class="line">    fs = []</span><br><span class="line">    for i in range(1, 4):</span><br><span class="line">        def f():</span><br><span class="line">            return i*i</span><br><span class="line">        fs.append(f)</span><br><span class="line">    return fs</span><br><span class="line"># f1, f2, f3 = count()</span><br><span class="line"># print(f1())</span><br><span class="line"># print(f2())</span><br><span class="line"># print(f3())</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">在上面的例子中，每次循环，都创建了一个新的函数，然后，把创建的3个函数都返回了。</span><br><span class="line">你可能认为调用f1()，f2()和f3()结果应该是1，4，9，但实际结果是：</span><br><span class="line">全部都是9！原因就在于返回的函数引用了变量i，但它并非立刻执行。等到3个函数都返回时，它们所引用的变量i已经变成了3，因此最终结果为9。</span><br><span class="line">返回闭包时牢记一点：返回函数不要引用任何循环变量，或者后续会发生变化的变量。</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line"># f1, f2 = count() 会报错个数必须是for循环的次数</span><br><span class="line"># print(f1())</span><br><span class="line"># print(f2())</span><br><span class="line"></span><br><span class="line">def count1():</span><br><span class="line">    def f(j):</span><br><span class="line">        def g():</span><br><span class="line">            return j*j</span><br><span class="line">        return g</span><br><span class="line">    fs = []</span><br><span class="line">    for i in range(1, 4):</span><br><span class="line">        fs.append(f(i)) # f(i)立刻被执行，因此i的当前值被传入f()</span><br><span class="line">    return fs</span><br><span class="line">f1, f2, f3 = count1()</span><br><span class="line">print(f1())</span><br><span class="line">print(f2())</span><br><span class="line">print(f3())</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="匿名函数lambda"><a href="#匿名函数lambda" class="headerlink" title="匿名函数lambda"></a>匿名函数lambda</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def is_odd(n):</span><br><span class="line">    return n % 2 == 1</span><br><span class="line">L = list(filter(is_odd, range(1, 20)))</span><br><span class="line">L1 = list(filter(lambda x : x%2==1,range(1,20)))</span><br><span class="line">print(L)</span><br><span class="line">print(L1)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">#函数对象有一个__name__属性，可以拿到函数的名字：</span><br><span class="line"># def now():</span><br><span class="line">#     return &quot;2018-6-24&quot;</span><br><span class="line"># print(now.__name__)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">现在，假设我们要增强now()函数的功能，比如，在函数调用前后自动打印日志，</span><br><span class="line">但又不希望修改now()函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">from _datetime import datetime</span><br><span class="line">import functools</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def log(func):</span><br><span class="line">    def wrapper(*args,**kw):</span><br><span class="line">        print(&quot;call %s()&quot; % func.__name__)</span><br><span class="line">        return func(*args,**kw)</span><br><span class="line">    return wrapper</span><br><span class="line">@log</span><br><span class="line">def now():</span><br><span class="line">    return &quot;2018-6-24&quot;</span><br><span class="line">print(now())</span><br><span class="line"># 如果装饰器函数同样需要参数</span><br><span class="line">def log1(text):</span><br><span class="line">    def decorator(func):</span><br><span class="line">        def wrapper(*args,**kw):</span><br><span class="line">            print(text,func.__name__)</span><br><span class="line">            return func(*args,**kw)</span><br><span class="line">        return wrapper</span><br><span class="line">    return decorator</span><br><span class="line"></span><br><span class="line">@log1(&quot;exectue&quot;)</span><br><span class="line">def now1():</span><br><span class="line">    return &quot;2018-6-24&quot;</span><br><span class="line">print(now1())</span><br><span class="line">#和两层嵌套的decorator相比，3层嵌套的效果是这样的：</span><br><span class="line">#now = log(&apos;execute&apos;)(now)</span><br><span class="line"># 这样之后，函数内置的属性，如__name__ 就会改变为wrapper</span><br><span class="line">print(now1.__name__)</span><br><span class="line"># 改进</span><br><span class="line">def log2(text):</span><br><span class="line">    def decorator(func):</span><br><span class="line">        @functools.wraps(func)</span><br><span class="line">        def wrapper(*args,**kw):</span><br><span class="line">            print(&quot;%s %s()&quot; % (text,func.__name__))</span><br><span class="line">            return func(*args,**kw)</span><br><span class="line">        return wrapper</span><br><span class="line">    return decorator</span><br><span class="line">@log2(&quot;execute&quot;)</span><br><span class="line">def now2():</span><br><span class="line">    return &quot;2018-6-24&quot;</span><br><span class="line">print(now2.__name__)</span><br><span class="line">print(now2())</span><br><span class="line"># 本节作业请设计一个decorator，它可作用于任何函数上，并打印该函数的执行时间：</span><br><span class="line">def metric(func):</span><br><span class="line">    @functools.wraps(func)</span><br><span class="line">    def wrapper(*args,**kw):</span><br><span class="line">        print(&quot;执行时间：%s&quot; % datetime.now())</span><br><span class="line">        return func(*args,**kw)</span><br><span class="line">    return wrapper</span><br><span class="line">@metric</span><br><span class="line">def fast(x, y):</span><br><span class="line">    time.sleep(0.0012)</span><br><span class="line">    return x + y;</span><br><span class="line">@metric</span><br><span class="line">def slow(x, y, z):</span><br><span class="line">    time.sleep(0.1234)</span><br><span class="line">    return x * y * z;</span><br><span class="line"></span><br><span class="line">f = fast(11, 22)</span><br><span class="line">s = slow(11, 22, 33)</span><br><span class="line">if f != 33:</span><br><span class="line">    print(&apos;测试失败!&apos;)</span><br><span class="line">elif s != 7986:</span><br><span class="line">    print(&apos;测试失败!&apos;)</span><br><span class="line"></span><br><span class="line">def log4(text):</span><br><span class="line">    def decorator(func):</span><br><span class="line">        @functools.wraps(func)</span><br><span class="line">        def wrapper(*args,**kw):</span><br><span class="line">            print(&quot;call start:%s&quot;%datetime.now())</span><br><span class="line">            re = func(*args,**kw)</span><br><span class="line">            print(&quot;call end:%s&quot;%datetime.now())</span><br><span class="line">            return re</span><br><span class="line">        return wrapper</span><br><span class="line">    return decorator</span><br><span class="line">@log4(&apos;execute&apos;)</span><br><span class="line">def f5():</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    pass</span><br><span class="line"># @log4(&apos;execute&apos;)</span><br><span class="line"># def f6():</span><br><span class="line">#     pass</span><br><span class="line">f5()</span><br><span class="line"># f6()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="偏函数，类似java中重载函数"><a href="#偏函数，类似java中重载函数" class="headerlink" title="偏函数，类似java中重载函数"></a>偏函数，类似java中重载函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import functools</span><br><span class="line">print(int(&quot;12345&quot;))</span><br><span class="line">print(int(&quot;12345&quot;,base=8))</span><br><span class="line">print(int(&quot;1000000&quot;,base=2))</span><br><span class="line"># 如果我们需要经常用到 转换2进制，可以定义一个int2</span><br><span class="line">def int2(s):</span><br><span class="line">    return int(s,base=2)</span><br><span class="line">#我们也可以这么做</span><br><span class="line">print(int2(&quot;100000&quot;))</span><br><span class="line">int2 = functools.partial(int,base=2)</span><br><span class="line">print(int2(&quot;100000&quot;))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/02/Python/学习记录/Python学习第四章/" rel="next" title="Python学习第四章">
+                <i class="fa fa-chevron-left"></i> Python学习第四章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/29/博客/GitHub个人博客搭建/" rel="prev" title="GitHub个人博客搭建">
+                GitHub个人博客搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KThirty</p>
+              <p class="site-description motion-element" itemprop="description">KThirty</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/kthirty" title="GitHub &rarr; https://github.com/kthirty" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#高级函数"><span class="nav-number">1.</span> <span class="nav-text">高级函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回函数"><span class="nav-number">2.</span> <span class="nav-text">返回函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名函数lambda"><span class="nav-number">3.</span> <span class="nav-text">匿名函数lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器"><span class="nav-number">4.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏函数，类似java中重载函数"><span class="nav-number">5.</span> <span class="nav-text">偏函数，类似java中重载函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KThirty</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+    <!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<style>
+#gitment-container a {
+  border-bottom: none;
+}
+
+  a.gitment-editor-footer-tip, .gitment-container.gitment-footer-container {
+    display: none;
+  }
+
+</style>
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'kthirty',
+      repo: 'kthirty.github.io',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: '4581a4e57603f6b84889cd161b661fbc208ec041',
+      
+        client_id: 'fe1b70ee277015ee71de'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    renderGitment();
+  
+</script>
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
