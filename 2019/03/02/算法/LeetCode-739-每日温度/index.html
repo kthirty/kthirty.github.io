@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="算法题：给定一个Excel表格中的列名称，返回其相应的列序号。">
+  <meta name="description" content="LeetCode-739-每日温度解题步骤">
 <meta name="keywords" content="算法,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-171-Excel表列序号">
-<meta property="og:url" content="http://yoursite.com/2019/01/27/算法/Leetcode-171-Excel表列序号/index.html">
+<meta property="og:title" content="LeetCode-739-每日温度">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/算法/LeetCode-739-每日温度/index.html">
 <meta property="og:site_name" content="KThirty">
-<meta property="og:description" content="算法题：给定一个Excel表格中的列名称，返回其相应的列序号。">
+<meta property="og:description" content="LeetCode-739-每日温度解题步骤">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-27T14:23:53.926Z">
+<meta property="og:updated_time" content="2019-03-02T14:45:39.110Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-171-Excel表列序号">
-<meta name="twitter:description" content="算法题：给定一个Excel表格中的列名称，返回其相应的列序号。">
+<meta name="twitter:title" content="LeetCode-739-每日温度">
+<meta name="twitter:description" content="LeetCode-739-每日温度解题步骤">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/27/算法/Leetcode-171-Excel表列序号/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/02/算法/LeetCode-739-每日温度/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>LeetCode-171-Excel表列序号 | KThirty</title>
+  <title>LeetCode-739-每日温度 | KThirty</title>
   
 
 
@@ -353,7 +353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/27/算法/Leetcode-171-Excel表列序号/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/算法/LeetCode-739-每日温度/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="KThirty">
@@ -370,7 +370,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-171-Excel表列序号
+          <h1 class="post-title" itemprop="name headline">LeetCode-739-每日温度
 
               
             
@@ -396,7 +396,7 @@
                 
               
 
-              <time title="创建时间：2019-01-27 22:20:48 / 修改时间：22:23:53" itemprop="dateCreated datePublished" datetime="2019-01-27T22:20:48+08:00">2019-01-27</time>
+              <time title="创建时间：2019-03-02 21:31:59 / 修改时间：22:45:39" itemprop="dateCreated datePublished" datetime="2019-03-02T21:31:59+08:00">2019-03-02</time>
             
 
             
@@ -439,7 +439,7 @@
           
 
           
-            <div class="post-description">算法题：给定一个Excel表格中的列名称，返回其相应的列序号。</div>
+            <div class="post-description">LeetCode-739-每日温度解题步骤</div>
           
 
         </div>
@@ -456,25 +456,31 @@
 
       
         <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><blockquote>
-<p>给定一个Excel表格中的列名称，返回其相应的列序号。</p>
-<p>例如，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;    A -&gt; <span class="number">1</span></span><br><span class="line">&gt;    B -&gt; <span class="number">2</span></span><br><span class="line">&gt;    C -&gt; <span class="number">3</span></span><br><span class="line">&gt;    ...</span><br><span class="line">&gt;    Z -&gt; <span class="number">26</span></span><br><span class="line">&gt;    AA -&gt; <span class="number">27</span></span><br><span class="line">&gt;    AB -&gt; <span class="number">28</span> </span><br><span class="line">&gt;    ...</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>根据每日 <code>气温</code> 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 <code>0</code> 来代替。</p>
+<p>例如，给定一个列表 <code>temperatures = [73, 74, 75, 71, 69, 72, 76, 73]</code>，你的输出应该是 <code>[1, 1, 4, 2, 1, 1, 0, 0]</code>。</p>
+<p><strong>提示：</strong><code>气温</code> 列表长度的范围是 <code>[1, 30000]</code>。每个气温的值的都是 <code>[30, 100]</code> 范围内的整数。</p>
+<p><a href="https://leetcode-cn.com/problems/daily-temperatures/" target="_blank" rel="noopener">原文链接</a></p>
 </blockquote>
-<blockquote>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: <span class="string">"A"</span></span><br><span class="line">&gt;输出: <span class="number">1</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: <span class="string">"AB"</span></span><br><span class="line">&gt;输出: <span class="number">28</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong>示例 3:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: <span class="string">"ZY"</span></span><br><span class="line">&gt;输出: <span class="number">701</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>简单的26进制转换为10进制的题目</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chars.length; i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> aChar = chars[i];</span><br><span class="line">            <span class="keyword">int</span> i1 = aChar - <span class="string">'A'</span> + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> i2 = (<span class="keyword">int</span>)Math.pow(<span class="number">26</span>D, chars.length - i - <span class="number">1</span>);</span><br><span class="line">            r += i1*i2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>结果等于（当前位数的值*当前位数代表的十进制值）求和</p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
+<li><p>原地算法</p>
+</li>
+<li><p>在本数组进行计算</p>
+</li>
+<li><p>循环每一个数字并寻找之后高于这个数字的第一个数字，如果未寻找到，说明答案为0</p>
+</li>
+</ul>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; T.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> i1 = T[i];</span><br><span class="line">            <span class="keyword">boolean</span> b1 = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j =i+<span class="number">1</span>;j&lt;T.length;j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j1 = T[j];</span><br><span class="line">                <span class="keyword">if</span>(j1&gt;i1)&#123;</span><br><span class="line">                    b1 = <span class="keyword">false</span>;</span><br><span class="line">                    T[i] = j - i;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(b1)T[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> T;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="大佬代码第一步"><a href="#大佬代码第一步" class="headerlink" title="大佬代码第一步"></a>大佬代码第一步</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[T.length];</span><br><span class="line">        stack.push(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; T.length; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (stack.size() &gt; <span class="number">0</span> &amp;&amp; T[stack.peek()] &lt; T[i])</span><br><span class="line">                res[stack.peek()] = i - stack.pop();</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><ul>
+<li>使用栈，栈顶数据为未解决索引值</li>
+<li>初始化为0，需要从第0个开始</li>
+<li>如果第0个小于第一个，说明第0个需要1天提升温度</li>
+<li>如果不大于，栈中数据不动，并将第一个也放入栈中</li>
+<li>循环到第二个，与栈顶数字索引的值做比较，如果当前值大于栈顶索引对应的数字，说明栈顶索引需要（当前索引-栈顶索引）天提升温度</li>
+<li>如果栈中依旧还有未处理的，则继续判断，如果当前未处理的最后一个索引对应的值小于当前索引对应的值，则未处理的最后一个索引对应的需要（当前索引-栈顶索引）天</li>
+</ul>
+<h1 id="大佬代码第二步"><a href="#大佬代码第二步" class="headerlink" title="大佬代码第二步"></a>大佬代码第二步</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        <span class="keyword">if</span> (T == <span class="keyword">null</span> || T.length == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> T;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[T.length];</span><br><span class="line">        <span class="keyword">int</span>[] stack = <span class="keyword">new</span> <span class="keyword">int</span>[T.length]; <span class="comment">// 用int数组代替stack</span></span><br><span class="line">        <span class="keyword">int</span> top = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; T.length; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (top &gt; -<span class="number">1</span> &amp;&amp; T[i] &gt; T[stack[top]]) &#123;</span><br><span class="line">                <span class="keyword">int</span> index = stack[top--];</span><br><span class="line">                result[index] = i - index;</span><br><span class="line">            &#125;</span><br><span class="line">            stack[++top] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>用int数组代替栈，实现上面的同等效果</p>
 
       
     </div>
@@ -513,8 +519,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/算法/LeetCode-168-Excel表列名称/" rel="next" title="LeetCode-168-Excel表列名称">
-                <i class="fa fa-chevron-left"></i> LeetCode-168-Excel表列名称
+              <a href="/2019/03/02/算法/LeetCode-504-七进制数/" rel="next" title="LeetCode-504-七进制数解题步骤">
+                <i class="fa fa-chevron-left"></i> LeetCode-504-七进制数解题步骤
               </a>
             
           </div>
@@ -522,10 +528,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/27/算法/LeetCode-169-求众数/" rel="prev" title="LeetCode-169-求众数">
-                LeetCode-169-求众数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -702,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大佬代码第一步"><span class="nav-number">4.</span> <span class="nav-text">大佬代码第一步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码分析"><span class="nav-number">5.</span> <span class="nav-text">代码分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大佬代码第二步"><span class="nav-number">6.</span> <span class="nav-text">大佬代码第二步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">7.</span> <span class="nav-text">分析</span></a></li></ol></div>
             
 
           </div>
