@@ -24,6 +24,10 @@
       
         <tags>
             
+            <tag> 源码 </tag>
+            
+            <tag> Netty </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -37,7 +41,7 @@
       <link href="posts/37RKQXY/"/>
       <url>posts/37RKQXY/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="项目规划"><a class="markdownIt-Anchor" href="#项目规划"></a> 项目规划</h1><p>本篇持续更新，列举系统中所用到的模块，项目整体规划等…</p><h2 id="技术选型"><a class="markdownIt-Anchor" href="#技术选型"></a> 技术选型</h2><table><thead><tr><th style="text-align:left">功能</th><th style="text-align:left">组件</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">注册中心</td><td style="text-align:left">Nacos</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">链路调用</td><td style="text-align:left">Dubbo</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">链路追踪</td><td style="text-align:left">Sentinel</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">分布式事务</td><td style="text-align:left">Seata</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">消息</td><td style="text-align:left">RocketMQ</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">网关</td><td style="text-align:left">Gateway</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">部署</td><td style="text-align:left">Docker、Docker-Compose</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">任务调度</td><td style="text-align:left">XXL-JOB</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">鉴权</td><td style="text-align:left">Spring Security</td><td style="text-align:left"></td></tr></tbody></table><h2 id="需要部署的组件"><a class="markdownIt-Anchor" href="#需要部署的组件"></a> 需要部署的组件</h2><ul><li>Nacos</li><li>Sentinel</li><li>RocketMQ</li><li>Nexus</li><li>Nginx</li></ul><h2 id="项目目录"><a class="markdownIt-Anchor" href="#项目目录"></a> 项目目录</h2><ul><li>docs<ul><li>bin: 项目脚本</li><li>docker: 项目中需要部署的组件DockerCompose文件</li><li>readme：项目文档</li></ul></li><li>kthirty-common：项目基础用来统一设置项目环境变量，项目基础运行枚举，集成必须组件作为业务代码的父项目</li><li>kthirty-core:  项目核心封装<ul><li>kthirty-core-auto: 使用Google Auto Service解决核心包与主项目包名不同导致核心包中Bean、Configuration无法扫描问题（生成spring.factories利用Spring的Starter机制）</li><li>kthirty-core-boot: 应用启动必须要使用的组件封装以及基础项目配置信息，包括组件有：Nacos服务注册与发现、Sentinel链路追踪与流控、actuator健康检查、Dubbo服务调用</li><li>kthirty-core-tool: 应用工具类整合hutool、commons-lang3</li><li>kthirty-core-db: 应用数据库访问包</li></ul></li><li>kthirty-dependencies: 应用依赖管理</li><li>kthirty-parent: 应用统一父pom，不使用根目录下的pom作为父pom而创建parent项目是为了方便后期做项目拆分处理与开发人员权限管理。</li><li>kthirty-demo: 应用demo与结构搭建测试历程<ul><li>kthirty-demo-boot: 微服务原生启动与服务注册</li><li>kthirty-demo-boot-with-core: 使用核心包后的启动</li><li>kthirty-demo-sentinel: Sentinel测试</li><li>kthirty-demo-alibaba-dubbo-provider: Dubbo 调用生产者</li><li>kthirty-demo-alibaba-dubbo-consumer: Dubbo 调用消费者</li><li>kthirty-demo-alibaba-dubbo-provider-api: Dubbo 生产者api（service与entity）</li><li>kthirty-demo-alibaba-dubbo-provider-with-core: 使用核心包的生产者</li><li>kthirty-demo-alibaba-dubbo-consumer-with-core: 使用核心包的消费者</li><li>kthirty-demo-db: 数据库访问常规版</li><li>kthirty-demo-db-with-core: 数据库访问核心包版</li></ul></li></ul><h2 id="端口规划"><a class="markdownIt-Anchor" href="#端口规划"></a> 端口规划</h2><table><thead><tr><th style="text-align:left">功能</th><th style="text-align:left">组件</th><th style="text-align:left">端口</th></tr></thead><tbody><tr><td style="text-align:left">Nginx</td><td style="text-align:left">Nginx</td><td style="text-align:left">30</td></tr><tr><td style="text-align:left">注册中心</td><td style="text-align:left">Nacos</td><td style="text-align:left">10101</td></tr><tr><td style="text-align:left">链路追踪</td><td style="text-align:left">Sentinel</td><td style="text-align:left">10102</td></tr><tr><td style="text-align:left">Maven私服</td><td style="text-align:left">Nexus</td><td style="text-align:left">10103</td></tr><tr><td style="text-align:left">数据库</td><td style="text-align:left">Mysql</td><td style="text-align:left">10104</td></tr></tbody></table><h2 id="系统返回码规划"><a class="markdownIt-Anchor" href="#系统返回码规划"></a> 系统返回码规划</h2><p>返回码长度为6位，前两位为系统归属模块，后四位为0000-9999数字</p><ul><li>AA： 系统通用基础模块</li></ul>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="微服务springcloudalibaba-项目规划"><a class="markdownIt-Anchor" href="#微服务springcloudalibaba-项目规划"></a> 微服务SpringCloudAlibaba-项目规划</h1><p>本篇持续更新，列举系统中所用到的模块，项目整体规划等…</p><h2 id="技术选型"><a class="markdownIt-Anchor" href="#技术选型"></a> 技术选型</h2><table><thead><tr><th style="text-align:left">功能</th><th style="text-align:left">组件</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">注册中心</td><td style="text-align:left">Nacos</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">链路调用</td><td style="text-align:left">Dubbo</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">链路追踪</td><td style="text-align:left">Sentinel</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">分布式事务</td><td style="text-align:left">Seata</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">消息</td><td style="text-align:left">RocketMQ</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">网关</td><td style="text-align:left">Gateway</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">部署</td><td style="text-align:left">Docker、Docker-Compose</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">任务调度</td><td style="text-align:left">XXL-JOB</td><td style="text-align:left"></td></tr><tr><td style="text-align:left">鉴权</td><td style="text-align:left">Spring Security</td><td style="text-align:left"></td></tr></tbody></table><h2 id="需要部署的组件"><a class="markdownIt-Anchor" href="#需要部署的组件"></a> 需要部署的组件</h2><ul><li>Nacos</li><li>Sentinel</li><li>RocketMQ</li><li>Nexus</li><li>Nginx</li></ul><h2 id="项目目录"><a class="markdownIt-Anchor" href="#项目目录"></a> 项目目录</h2><ul><li>docs<ul><li>bin: 项目脚本</li><li>docker: 项目中需要部署的组件DockerCompose文件</li><li>readme：项目文档</li></ul></li><li>kthirty-common：项目基础用来统一设置项目环境变量，项目基础运行枚举，集成必须组件作为业务代码的父项目</li><li>kthirty-core:  项目核心封装<ul><li>kthirty-core-auto: 使用Google Auto Service解决核心包与主项目包名不同导致核心包中Bean、Configuration无法扫描问题（生成spring.factories利用Spring的Starter机制）</li><li>kthirty-core-boot: 应用启动必须要使用的组件封装以及基础项目配置信息，包括组件有：Nacos服务注册与发现、Sentinel链路追踪与流控、actuator健康检查、Dubbo服务调用</li><li>kthirty-core-tool: 应用工具类整合hutool、commons-lang3</li><li>kthirty-core-db: 应用数据库访问包</li></ul></li><li>kthirty-dependencies: 应用依赖管理</li><li>kthirty-parent: 应用统一父pom，不使用根目录下的pom作为父pom而创建parent项目是为了方便后期做项目拆分处理与开发人员权限管理。</li><li>kthirty-demo: 应用demo与结构搭建测试历程<ul><li>kthirty-demo-boot: 微服务原生启动与服务注册</li><li>kthirty-demo-boot-with-core: 使用核心包后的启动</li><li>kthirty-demo-sentinel: Sentinel测试</li><li>kthirty-demo-alibaba-dubbo-provider: Dubbo 调用生产者</li><li>kthirty-demo-alibaba-dubbo-consumer: Dubbo 调用消费者</li><li>kthirty-demo-alibaba-dubbo-provider-api: Dubbo 生产者api（service与entity）</li><li>kthirty-demo-alibaba-dubbo-provider-with-core: 使用核心包的生产者</li><li>kthirty-demo-alibaba-dubbo-consumer-with-core: 使用核心包的消费者</li><li>kthirty-demo-db: 数据库访问常规版</li><li>kthirty-demo-db-with-core: 数据库访问核心包版</li></ul></li></ul><h2 id="端口规划"><a class="markdownIt-Anchor" href="#端口规划"></a> 端口规划</h2><table><thead><tr><th style="text-align:left">功能</th><th style="text-align:left">组件</th><th style="text-align:left">端口</th></tr></thead><tbody><tr><td style="text-align:left">Nginx</td><td style="text-align:left">Nginx</td><td style="text-align:left">30</td></tr><tr><td style="text-align:left">注册中心</td><td style="text-align:left">Nacos</td><td style="text-align:left">10101</td></tr><tr><td style="text-align:left">链路追踪</td><td style="text-align:left">Sentinel</td><td style="text-align:left">10102</td></tr><tr><td style="text-align:left">Maven私服</td><td style="text-align:left">Nexus</td><td style="text-align:left">10103</td></tr><tr><td style="text-align:left">数据库</td><td style="text-align:left">Mysql</td><td style="text-align:left">10104</td></tr></tbody></table><h2 id="系统返回码规划"><a class="markdownIt-Anchor" href="#系统返回码规划"></a> 系统返回码规划</h2><p>返回码长度为6位，前两位为系统归属模块，后四位为0000-9999数字</p><ul><li>AA： 系统通用基础模块</li></ul>]]></content>
       
       
       <categories>
@@ -53,7 +57,15 @@
       
         <tags>
             
+            <tag> Nginx </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
             <tag> KTHIRTY </tag>
+            
+            <tag> SpringCloudAlibaba </tag>
             
         </tags>
       
@@ -66,7 +78,7 @@
       <link href="posts/1FF1ZV9/"/>
       <url>posts/1FF1ZV9/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="微服务开篇"><a class="markdownIt-Anchor" href="#微服务开篇"></a> 微服务开篇</h1><h2 id="这个项目是做什么的"><a class="markdownIt-Anchor" href="#这个项目是做什么的"></a> 这个项目是做什么的？</h2><p>其实是想做一个微服务架构的脚手架，只关注架构设计，不实现具体业务。大概涉及一下几点：</p><ol><li>技术选型</li><li>二次封装</li><li>代码分层</li><li>统一异常处理</li><li>统一响应风格</li><li>统一MQ</li><li>统一熔断、提示、日志存储</li><li>分布式事务</li><li>链路追踪</li><li>Oath2？</li><li>网关（流控、降级、削峰、认证？）</li><li>API接口文档</li><li>restful 接口规范</li></ol><h2 id="为什么要做这个项目"><a class="markdownIt-Anchor" href="#为什么要做这个项目"></a> 为什么要做这个项目？</h2><p>现在微服务大致分为三种：</p><ol><li>SpringCloud: Eureka、Feign、Hystrix…：全套生态，但是restful调用方式略弱于RPC，且部分组件已不再维护</li><li>Dubbo、Zookeeper : RPC调用，但非完整生态，需要东拼西凑出一套完整的微服务生态。</li><li>SpringCloudAlibaba: Nacos、Sentinel、Seata、Dubbo: 完整生态且更新正常，但是当前正在上升期尚未稳定，感觉前景还不错。</li></ol><p>目的其实为了整和出一个可拔插式的项目架构，允许后期变更，SpringCloudAlibaba构建一个完整的微服务生态，且兼容RPC和restful风格的调用方式。</p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="微服务springcloudalibaba-开篇"><a class="markdownIt-Anchor" href="#微服务springcloudalibaba-开篇"></a> 微服务SpringCloudAlibaba-开篇</h1><h2 id="这个项目是做什么的"><a class="markdownIt-Anchor" href="#这个项目是做什么的"></a> 这个项目是做什么的？</h2><p>其实是想做一个微服务架构的脚手架，只关注架构设计，不实现具体业务。大概涉及一下几点：</p><ol><li>技术选型</li><li>二次封装</li><li>代码分层</li><li>统一异常处理</li><li>统一响应风格</li><li>统一MQ</li><li>统一熔断、提示、日志存储</li><li>分布式事务</li><li>链路追踪</li><li>Oath2？</li><li>网关（流控、降级、削峰、认证？）</li><li>API接口文档</li><li>restful 接口规范</li></ol><h2 id="为什么要做这个项目"><a class="markdownIt-Anchor" href="#为什么要做这个项目"></a> 为什么要做这个项目？</h2><p>现在微服务大致分为三种：</p><ol><li>SpringCloud: Eureka、Feign、Hystrix…：全套生态，但是restful调用方式略弱于RPC，且部分组件已不再维护</li><li>Dubbo、Zookeeper : RPC调用，但非完整生态，需要东拼西凑出一套完整的微服务生态。</li><li>SpringCloudAlibaba: Nacos、Sentinel、Seata、Dubbo: 完整生态且更新正常，但是当前正在上升期尚未稳定，感觉前景还不错。</li></ol><p>目的其实为了整和出一个可拔插式的项目架构，允许后期变更，SpringCloudAlibaba构建一个完整的微服务生态，且兼容RPC和restful风格的调用方式。</p>]]></content>
       
       
       <categories>
@@ -79,6 +91,14 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+            <tag> SpringCloudAlibaba </tag>
+            
+        </tags>
       
     </entry>
     
@@ -98,6 +118,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -184,6 +210,8 @@
             
             <tag> Minio </tag>
             
+            <tag> Docker </tag>
+            
         </tags>
       
     </entry>
@@ -212,6 +240,12 @@
         <tags>
             
             <tag> Nas </tag>
+            
+            <tag> Nginx </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -242,7 +276,11 @@
       
         <tags>
             
+            <tag> 架构 </tag>
+            
             <tag> Nas </tag>
+            
+            <tag> Docker </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -299,6 +337,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
       
     </entry>
     
@@ -376,6 +420,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
       
     </entry>
     
@@ -456,9 +506,15 @@
       
         <tags>
             
+            <tag> Linux </tag>
+            
             <tag> Centos </tag>
             
             <tag> Nginx </tag>
+            
+            <tag> 源码 </tag>
+            
+            <tag> Docker </tag>
             
         </tags>
       
@@ -491,6 +547,8 @@
             
             <tag> Nginx </tag>
             
+            <tag> 源码 </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -521,6 +579,8 @@
         <tags>
             
             <tag> SpringBoot </tag>
+            
+            <tag> 源码 </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -553,6 +613,8 @@
             
             <tag> Spring </tag>
             
+            <tag> 源码 </tag>
+            
         </tags>
       
     </entry>
@@ -582,6 +644,8 @@
             
             <tag> SpringBoot </tag>
             
+            <tag> 源码 </tag>
+            
         </tags>
       
     </entry>
@@ -608,6 +672,8 @@
         <tags>
             
             <tag> 消息队列 </tag>
+            
+            <tag> Docker </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -640,6 +706,12 @@
             
             <tag> Hasor </tag>
             
+            <tag> 源码 </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -668,6 +740,10 @@
         <tags>
             
             <tag> 消息队列 </tag>
+            
+            <tag> 架构 </tag>
+            
+            <tag> Netty </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -699,6 +775,8 @@
         <tags>
             
             <tag> 架构 </tag>
+            
+            <tag> 源码 </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -757,6 +835,8 @@
         <tags>
             
             <tag> Linux </tag>
+            
+            <tag> 源码 </tag>
             
         </tags>
       
@@ -849,6 +929,8 @@
             
             <tag> 设计模式 </tag>
             
+            <tag> 算法 </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -878,7 +960,15 @@
       
         <tags>
             
+            <tag> 架构 </tag>
+            
             <tag> Elasticsearch </tag>
+            
+            <tag> 源码 </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
             
             <tag> KTHIRTY </tag>
             
@@ -911,6 +1001,8 @@
             
             <tag> HashMap </tag>
             
+            <tag> 源码 </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -935,6 +1027,16 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Nginx </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
       
     </entry>
     
@@ -963,6 +1065,14 @@
             
             <tag> 任务调度 </tag>
             
+            <tag> 架构 </tag>
+            
+            <tag> 源码 </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -988,6 +1098,16 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Nginx </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -1008,6 +1128,16 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
       
     </entry>
     
@@ -1036,6 +1166,8 @@
             
             <tag> 架构 </tag>
             
+            <tag> 源码 </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -1062,6 +1194,8 @@
       
       
         <tags>
+            
+            <tag> Markdown </tag>
             
             <tag> 软件推荐 </tag>
             
@@ -1148,6 +1282,8 @@
             
             <tag> GitHub </tag>
             
+            <tag> Hexo </tag>
+            
             <tag> KTHIRTY </tag>
             
         </tags>
@@ -1187,37 +1323,6 @@
     
     <entry>
       <title>Centos7-Mysql5</title>
-      <link href="posts/6064/"/>
-      <url>posts/6064/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>在Centos7配置MySQL主从同步</p><h1 id="本次配置使用的服务器"><a class="markdownIt-Anchor" href="#本次配置使用的服务器"></a> 本次配置使用的服务器</h1><p>master 192.168.3.30<br />salve  192.168.3.31</p><h1 id="master配置"><a class="markdownIt-Anchor" href="#master配置"></a> Master配置</h1><p>修改配置文件<br />vim /etc/my.cnf</p><p>加入以下配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind-address &#x3D; 192.168.33.22 #your master ip 开启访问权限</span><br><span class="line">server-id &#x3D; 1 #在master-slave架构中，每台机器节点都需要有唯一的server-id</span><br><span class="line">log-bin&#x3D;mysql-bin </span><br></pre></td></tr></table></figure><p>重启mysql<br />/etc/init.d/mysqld restart</p><p>创建主从同步的mysql user (在Mysql命令行操作)</p><p>CREATE USER ‘slave1’@‘192.168.3.31’ IDENTIFIED BY ‘slave1’;<br />赋权<br />GRANT REPLICATION SLAVE ON <em>.</em> TO ‘slave1’@‘192.168.3.31’;</p><p>为了保证主从数据库数据同步，暂时加入读锁，防止数据同步时期数据变动导致主从不一致<br />FLUSH TABLES WITH READ LOCK;</p><p>记录下来MASTER REPLICATION LOG 的位置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW MASTER STATUS;</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| mysql-bin.000001 |      120 |              |                  |                   |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure><p>导出主库数据<br />mysqldump -u root -p --all-databases --master-data &gt; dbdump.sql<br />发现mysqldump 命令不存在<br />ln -s /usr/local/mysql/bin/mysqldump /usr/bin/mysqldump<br />加入链接</p><p>解除读锁<br />UNLOCK TABLES;</p><p>将导出文件传输到salve<br />scp dbdump.sql <a href="mailto:root@192.168.3.31">root@192.168.3.31</a>:/root/</p><h1 id="salve配置"><a class="markdownIt-Anchor" href="#salve配置"></a> Salve配置</h1><p>更改/etc/my.cnf配置文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind-address &#x3D; 192.168.3.30 # 授权访问地址</span><br><span class="line">server-id &#x3D; 2 #master-slave结构中，唯一的server-id</span><br><span class="line">log_bin &#x3D; mysql-bin</span><br></pre></td></tr></table></figure><p>重启mysql是配置生效<br />/etc/init.d/mysqld restart</p><p>导入数据</p><p>mysql -u root -p &lt; /root/dbdump.sql</p><p>使slave与master建立连接，从而同步</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">stop slave; # 先停止</span><br><span class="line"></span><br><span class="line">启动</span><br><span class="line">CHANGE MASTER TO </span><br><span class="line">  MASTER_HOST&#x3D;&#39;192.168.3.30&#39;, # 主库IP</span><br><span class="line">  MASTER_USER&#x3D;&#39;slave1&#39;, # 主库用户名</span><br><span class="line">  MASTER_PASSWORD&#x3D;&#39;slave1&#39;,# 主库密码</span><br><span class="line">  MASTER_LOG_FILE&#x3D;&#39;mysql-bin.000003&#39;,</span><br><span class="line">  MASTER_LOG_POS&#x3D;333;</span><br><span class="line">后面两项可以在主库中使用&#96;show master status&#96;命令查看</span><br><span class="line"></span><br><span class="line">&gt;mysql&gt; show master status;</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">&gt;| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">&gt;| mysql-bin.000003 |      333 |              |                  |                   |</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">start slave ; # 启动同步</span><br></pre></td></tr></table></figure><p>到这里应该已经可以同步了，如果不行，在从库使用show slave status\G 查看详细原因<br />主要查看 <code>Slave_IO_Running: Yes</code> <code>Slave_SQL_Running: Yes</code>两项</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术 </category>
-          
-          <category> 环境搭建 </category>
-          
-          <category> MySQL </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Mysql </tag>
-            
-            <tag> Centos </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Centos7-Mysql5</title>
       <link href="posts/568a/"/>
       <url>posts/568a/</url>
       
@@ -1237,9 +1342,48 @@
       
         <tags>
             
+            <tag> Linux </tag>
+            
             <tag> Mysql </tag>
             
             <tag> Centos </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Centos7-Mysql5</title>
+      <link href="posts/6064/"/>
+      <url>posts/6064/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>在Centos7配置MySQL主从同步</p><h1 id="本次配置使用的服务器"><a class="markdownIt-Anchor" href="#本次配置使用的服务器"></a> 本次配置使用的服务器</h1><p>master 192.168.3.30<br />salve  192.168.3.31</p><h1 id="master配置"><a class="markdownIt-Anchor" href="#master配置"></a> Master配置</h1><p>修改配置文件<br />vim /etc/my.cnf</p><p>加入以下配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind-address &#x3D; 192.168.33.22 #your master ip 开启访问权限</span><br><span class="line">server-id &#x3D; 1 #在master-slave架构中，每台机器节点都需要有唯一的server-id</span><br><span class="line">log-bin&#x3D;mysql-bin </span><br></pre></td></tr></table></figure><p>重启mysql<br />/etc/init.d/mysqld restart</p><p>创建主从同步的mysql user (在Mysql命令行操作)</p><p>CREATE USER ‘slave1’@‘192.168.3.31’ IDENTIFIED BY ‘slave1’;<br />赋权<br />GRANT REPLICATION SLAVE ON <em>.</em> TO ‘slave1’@‘192.168.3.31’;</p><p>为了保证主从数据库数据同步，暂时加入读锁，防止数据同步时期数据变动导致主从不一致<br />FLUSH TABLES WITH READ LOCK;</p><p>记录下来MASTER REPLICATION LOG 的位置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW MASTER STATUS;</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| mysql-bin.000001 |      120 |              |                  |                   |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure><p>导出主库数据<br />mysqldump -u root -p --all-databases --master-data &gt; dbdump.sql<br />发现mysqldump 命令不存在<br />ln -s /usr/local/mysql/bin/mysqldump /usr/bin/mysqldump<br />加入链接</p><p>解除读锁<br />UNLOCK TABLES;</p><p>将导出文件传输到salve<br />scp dbdump.sql <a href="mailto:root@192.168.3.31">root@192.168.3.31</a>:/root/</p><h1 id="salve配置"><a class="markdownIt-Anchor" href="#salve配置"></a> Salve配置</h1><p>更改/etc/my.cnf配置文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind-address &#x3D; 192.168.3.30 # 授权访问地址</span><br><span class="line">server-id &#x3D; 2 #master-slave结构中，唯一的server-id</span><br><span class="line">log_bin &#x3D; mysql-bin</span><br></pre></td></tr></table></figure><p>重启mysql是配置生效<br />/etc/init.d/mysqld restart</p><p>导入数据</p><p>mysql -u root -p &lt; /root/dbdump.sql</p><p>使slave与master建立连接，从而同步</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">stop slave; # 先停止</span><br><span class="line"></span><br><span class="line">启动</span><br><span class="line">CHANGE MASTER TO </span><br><span class="line">  MASTER_HOST&#x3D;&#39;192.168.3.30&#39;, # 主库IP</span><br><span class="line">  MASTER_USER&#x3D;&#39;slave1&#39;, # 主库用户名</span><br><span class="line">  MASTER_PASSWORD&#x3D;&#39;slave1&#39;,# 主库密码</span><br><span class="line">  MASTER_LOG_FILE&#x3D;&#39;mysql-bin.000003&#39;,</span><br><span class="line">  MASTER_LOG_POS&#x3D;333;</span><br><span class="line">后面两项可以在主库中使用&#96;show master status&#96;命令查看</span><br><span class="line"></span><br><span class="line">&gt;mysql&gt; show master status;</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">&gt;| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">&gt;| mysql-bin.000003 |      333 |              |                  |                   |</span><br><span class="line">&gt;+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">start slave ; # 启动同步</span><br></pre></td></tr></table></figure><p>到这里应该已经可以同步了，如果不行，在从库使用show slave status\G 查看详细原因<br />主要查看 <code>Slave_IO_Running: Yes</code> <code>Slave_SQL_Running: Yes</code>两项</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> 环境搭建 </category>
+          
+          <category> MySQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+            <tag> Mysql </tag>
+            
+            <tag> Centos </tag>
+            
+            <tag> MySQL </tag>
             
         </tags>
       
