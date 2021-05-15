@@ -13,18 +13,28 @@
             color: #231F20;
         }
         p{
-            padding-top: 20px;
+            padding-top: 5px;
+            font-size: small;
         }
         #secondary{
             padding-left: 10px;
+        }
+        span{
+            background: no-repeat center;
+            background-size:contain;
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+            margin-right: 2px;
         }
     </style>
 </head>
 <body>
     <div id="secondary">
         <h2>Version</h2>
-        <p><a href="#" onclick="toUrl('/love/index.html')">V2-Since-2021-05-14</a></p>
-        <p><a href="#" onclick="toUrl('/love/v1.html')">V1-Since-2021-04-21</a></p>
+        <p><span style="background-image: url(./icon/emoji-3.png);"></span><a href="#" onclick="toUrl('/love/index.html')">V3-Since-2021-05-16</a></p>
+        <p><span style="background-image: url(./icon/emoji-2.png);"></span><a href="#" onclick="toUrl('/love/v2.html')">V2-Since-2021-04-21</a></p>
+        <p><span style="background-image: url(./icon/emoji-1.png);"></span><a href="#" onclick="toUrl('/love/v1.html')">V1-Since-2021-03-19</a></p>
     </div>
     <script type="text/javascript">
         function toUrl(url){
