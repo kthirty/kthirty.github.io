@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>分布式任务调度之XXL-JOB | KTHIRTY</title><meta name="author" content="KTHIRTY"><meta name="copyright" content="KTHIRTY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介 一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。 工作中有很多需要定时执行的任务，比如（每分钟扫描超时支付的订单、每天提醒用户未完成的任务）等等… 在分布式技术横行的时代，选择一个优秀的分布式的任务调度平台尤为重要。 今天介绍的XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。  为什么要选择XXL-JOB   基础概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式任务调度之XXL-JOB">
+<meta property="og:url" content="http://blog.kthirty.top/posts/60489/index.html">
+<meta property="og:site_name" content="KTHIRTY">
+<meta property="og:description" content="简介 一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。 工作中有很多需要定时执行的任务，比如（每分钟扫描超时支付的订单、每天提醒用户未完成的任务）等等… 在分布式技术横行的时代，选择一个优秀的分布式的任务调度平台尤为重要。 今天介绍的XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。  为什么要选择XXL-JOB   基础概念">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg">
+<meta property="article:published_time" content="2020-04-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-14T05:28:09.555Z">
+<meta property="article:author" content="KTHIRTY">
+<meta property="article:tag" content="架构">
+<meta property="article:tag" content="任务调度">
+<meta property="article:tag" content="KTHIRTY">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="源码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200422145537.png"><link rel="canonical" href="http://blog.kthirty.top/posts/60489/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd580a872cdebd1710328f2c9ebd131d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分布式任务调度之XXL-JOB',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-14 13:28:09'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/04/21/HYeBPIL7vTRX1pZ.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/LTS/"><i class="fa-fw fa fa-sign-language"></i><span> LTS</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="KTHIRTY"><span class="site-name">KTHIRTY</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/LTS/"><i class="fa-fw fa fa-sign-language"></i><span> LTS</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">分布式任务调度之XXL-JOB</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-22T16:00:00.000Z" title="发表于 2020-04-23 00:00:00">2020-04-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-14T05:28:09.555Z" title="更新于 2025-10-14 13:28:09">2025-10-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/Java/%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">任务调度</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="分布式任务调度之XXL-JOB"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+<p>一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。<br />
+工作中有很多需要定时执行的任务，比如（每分钟扫描超时支付的订单、每天提醒用户未完成的任务）等等…<br />
+在分布式技术横行的时代，选择一个优秀的分布式的任务调度平台尤为重要。<br />
+今天介绍的<a target="_blank" rel="noopener" href="http://www.xuxueli.com/xxl-job/">XXL-JOB</a>是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。</p>
+<h1 id="为什么要选择xxl-job"><a class="markdownIt-Anchor" href="#为什么要选择xxl-job"></a> 为什么要选择XXL-JOB</h1>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200423135903.png" alt="对比图" /></p>
+<h1 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h1>
+<ul>
+<li>调度中心: XXL-JOB-ADMIN 官网提供的调度中心（页面管理）应用</li>
+<li>执行器： 开发中实际业务项目</li>
+</ul>
+<h1 id="开始使用"><a class="markdownIt-Anchor" href="#开始使用"></a> 开始使用</h1>
+<h2 id="配置调度中心"><a class="markdownIt-Anchor" href="#配置调度中心"></a> 配置调度中心</h2>
+<p>建议使用docker-compose部署，docker-compose文件请点击<a target="_blank" rel="noopener" href="https://github.com/kthirty/docker/tree/master/docker-compose/xxl-job">这里</a><br />
+docker 部署命令如下(摘至官方文档)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8080:8080 -v &#x2F;tmp:&#x2F;data&#x2F;applogs --name xxl-job-admin  -d xuxueli&#x2F;xxl-job-admin:&#123;指定版本&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line">* 如需自定义 mysql 等配置，可通过 &quot;-e PARAMS&quot; 指定，参数格式 PARAMS&#x3D;&quot;--key&#x3D;value  --key2&#x3D;value2&quot; ；</span><br><span class="line">* 配置项参考文件：&#x2F;xxl-job&#x2F;xxl-job-admin&#x2F;src&#x2F;main&#x2F;resources&#x2F;application.properties</span><br><span class="line">* 如需自定义 JVM内存参数 等配置，可通过 &quot;-e JAVA_OPTS&quot; 指定，参数格式 JAVA_OPTS&#x3D;&quot;-Xmx512m&quot; ；</span><br><span class="line">*&#x2F;</span><br><span class="line">docker run -e PARAMS&#x3D;&quot;--spring.datasource.url&#x3D;jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;xxl_job?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;autoReconnect&#x3D;true&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&quot; -p 8080:8080 -v &#x2F;tmp:&#x2F;data&#x2F;applogs --name xxl-job-admin  -d xuxueli&#x2F;xxl-job-admin:&#123;指定版本&#125;</span><br></pre></td></tr></table></figure>
+<p>如需传统模式安装请查阅<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-job/">官方安装文档</a></p>
+<h2 id="配置执行器项目"><a class="markdownIt-Anchor" href="#配置执行器项目"></a> 配置执行器项目</h2>
+<h3 id="依赖引入"><a class="markdownIt-Anchor" href="#依赖引入"></a> 依赖引入</h3>
+<p>在项目pom文件中添加以下依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- xxl-job-core --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.xuxueli&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;xxl-job-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;xxl-job.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="执行器配置"><a class="markdownIt-Anchor" href="#执行器配置"></a> 执行器配置</h3>
+<p>在项目的配置文件<code>application.properties</code> or <code>application.yml</code> 中添加以下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">xxl:</span><br><span class="line">  job:</span><br><span class="line">    ### 执行器通讯TOKEN [选填]：非空时启用；</span><br><span class="line">    accessToken: &#39;&#39;</span><br><span class="line">    admin:</span><br><span class="line">      ### 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行&quot;执行器心跳注册&quot;和&quot;任务结果回调&quot;；为空则关闭自动注册；</span><br><span class="line">      addresses: http:&#x2F;&#x2F;192.168.3.30:9000&#x2F;xxl-job-admin</span><br><span class="line">    executor:</span><br><span class="line">      ### 执行器注册 [选填]：优先使用该配置作为注册地址，为空时使用内嵌服务 ”IP:PORT“ 作为注册地址。从而更灵活的支持容器类型执行器动态IP和动态映射端口问题。</span><br><span class="line">      address: &#39;&#39;</span><br><span class="line">      ### 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册</span><br><span class="line">      appname: xxl-job-executor-sample</span><br><span class="line">      ### 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；地址信息用于 &quot;执行器注册&quot; 和 &quot;调度中心请求并触发任务&quot;；</span><br><span class="line">      ip: &#39;&#39;</span><br><span class="line">      ### 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；</span><br><span class="line">      logpath: &#x2F;data&#x2F;applogs&#x2F;xxl-job&#x2F;jobhandler</span><br><span class="line">      ### 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；</span><br><span class="line">      logretentiondays: 30</span><br><span class="line">      ### 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；</span><br><span class="line">      port: 9999</span><br></pre></td></tr></table></figure>
+<h3 id="执行器组件配置"><a class="markdownIt-Anchor" href="#执行器组件配置"></a> 执行器组件配置</h3>
+<p>向spring托管bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> XxlJobSpringExecutor <span class="title">xxlJobExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    logger.info(<span class="string">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; xxl-job config init.&quot;</span>);</span><br><span class="line">    XxlJobSpringExecutor xxlJobSpringExecutor = <span class="keyword">new</span> XxlJobSpringExecutor();</span><br><span class="line">    xxlJobSpringExecutor.setAdminAddresses(adminAddresses);</span><br><span class="line">    xxlJobSpringExecutor.setAppname(appname);</span><br><span class="line">    xxlJobSpringExecutor.setIp(ip);</span><br><span class="line">    xxlJobSpringExecutor.setPort(port);</span><br><span class="line">    xxlJobSpringExecutor.setAccessToken(accessToken);</span><br><span class="line">    xxlJobSpringExecutor.setLogPath(logPath);</span><br><span class="line">    xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);</span><br><span class="line">    <span class="keyword">return</span> xxlJobSpringExecutor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建执行器启动类"><a class="markdownIt-Anchor" href="#创建执行器启动类"></a> 创建执行器启动类</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="启动应用"><a class="markdownIt-Anchor" href="#启动应用"></a> 启动应用</h3>
+<p>注意：启动前需要保证配置文件中<code>xxl.job.admin.addresses</code> 配置项为正确的xxl-job-admin 地址(浏览器访问连接可以看到控制界面)</p>
+<h3 id="检查应用是否启动成功"><a class="markdownIt-Anchor" href="#检查应用是否启动成功"></a> 检查应用是否启动成功</h3>
+<p>浏览器打开调度中心地址（配置文件中<code>xxl.job.admin.addresses</code>项）,登录查看（默认账号密码为admin/123456）执行器管理中Online机器地址是否有你的应用访问地址<br />
+成功后如图所示<br />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200423142729.png" alt="" /></p>
+<p><strong>如果online没有出现你的机器，请检查配置文件中的appname项与页面中的appname项是否一致，如果不一致，在页面添加一个即可</strong></p>
+<h2 id="开始使用-2"><a class="markdownIt-Anchor" href="#开始使用-2"></a> 开始使用</h2>
+<p>XXL-JOB支持多种任务模式</p>
+<ul>
+<li>Bean模式
+<ul>
+<li>Bean模式（类形式）： 优点是兼容性好（无架构项目也可以使用）；缺点是一个任务占用一个Java类，造成类的浪费，且不支持自动注入，需要手动调用注入到执行器容器中（不常用）</li>
+<li>Bean模式（方法形式）: 优点是自动注入，只需要添加<code>@XxlJob</code>注解即可；缺点是需要Spring容器环境</li>
+</ul>
+</li>
+<li>GLUE模式：任务以源码方式维护在调度中心，支持通过Web IDE在线更新，实时编译和生效，因此不需要指定JobHandler。支持多种语言</li>
+</ul>
+<h3 id="bean模式类形式"><a class="markdownIt-Anchor" href="#bean模式类形式"></a> Bean模式（类形式）</h3>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoExecutorClass1JobHandler</span> <span class="keyword">extends</span> <span class="title">IJobHandler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ReturnT&lt;String&gt; <span class="title">execute</span><span class="params">(String s)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        XxlJobLogger.log(<span class="string">&quot;XXL-JOB, DemoExecutorClass1JobHandler 执行.&quot;</span>+System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">return</span> ReturnT.SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意:这种方式需要在main方法中添加<code>XxlJobExecutor.registJobHandler(&quot;demoJobHandler&quot;, new DemoExecutorClass1JobHandler());</code> 注册到执行器容器中</strong><br />
+这种方式实在不常用，这里不再赘述(<s>没有spring实在是太麻烦了，懒得写</s>)，需要的请查看<a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-job/tree/master/xxl-job-executor-samples/xxl-job-executor-sample-frameless">官方文档</a></p>
+<h3 id="bean模式方法形式"><a class="markdownIt-Anchor" href="#bean模式方法形式"></a> Bean模式（方法形式）</h3>
+<p>需要注意以下几点：</p>
+<ul>
+<li>在Spring Bean实例中，开发Job方法，方式格式要求为<code>public ReturnT&lt;String&gt; execute(String param)</code></li>
+<li>为Job方法添加注解 <code>@XxlJob(value=&quot;自定义jobhandler名称&quot;, init = &quot;JobHandler初始化方法&quot;, destroy = &quot;JobHandler销毁方法&quot;)</code> ，注解value值对应的是调度中心新建任务的JobHandler属性的值。</li>
+<li>执行日志：需要通过 “XxlJobLogger.log” 打印执行日志；</li>
+</ul>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册为bean，被xxl-job发现</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoExecutorMethodJobHandler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@XxlJob(value = &quot;printHelloWorldJobHandler&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ReturnT&lt;String&gt; <span class="title">printHelloWorldJobHandler</span><span class="params">(String param)</span></span>&#123;</span><br><span class="line">        XxlJobLogger.log(<span class="string">&quot;DemoExecutorMethodJobHandler Hello World&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> ReturnT.SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="glue模式java"><a class="markdownIt-Anchor" href="#glue模式java"></a> GLUE模式(Java)</h3>
+<p>任务以源码方式维护在调度中心，支持通过Web IDE在线更新，实时编译和生效，因此不需要指定JobHandler。开发流程如下：</p>
+<ol>
+<li>在调度中心新建任务，运行模式选择<strong>GLUE模式(Java)</strong></li>
+<li>在任务管理 -&gt; 操作 -&gt; GLUE IDE 中修改代码</li>
+</ol>
+<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
+<p>任务管理界面添加任务，配置如下<br />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200423152957.png" alt="" /></p>
+<p>需要注意的几点</p>
+<ul>
+<li>执行器请选择正确的执行器（有Online的）</li>
+<li>JobHandler 对应<code>@XxlJob</code>注解中的<code>value</code>值</li>
+</ul>
+<p>启动任务并查看日志，是否正常执行<br />
+正常截图如下<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200423153317.png" alt="" /></p>
+<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.xuxueli.com/xxl-job/">官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-job">Gitee</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kthirty/JavaProject/tree/master/task/xxl-job-springboot-demo">本文源码</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://blog.kthirty.top">KTHIRTY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://blog.kthirty.top/posts/60489/">http://blog.kthirty.top/posts/60489/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.kthirty.top" target="_blank">KTHIRTY</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a><a class="post-meta__tags" href="/tags/%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">任务调度</a><a class="post-meta__tags" href="/tags/KTHIRTY/">KTHIRTY</a><a class="post-meta__tags" href="/tags/Docker/">Docker</a><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a><a class="post-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/15057/" title="Docker深入之Dockerfile"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Docker深入之Dockerfile</div></div></a></div><div class="next-post pull-right"><a href="/posts/55781/" title="Docker进阶篇之docker-compose"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190505.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker进阶篇之docker-compose</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/8/" title="Elasticsearch入门篇"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725211527.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-05</div><div class="title">Elasticsearch入门篇</div></div></a></div><div><a href="/posts/65403/" title="无需代码实现接口之Hasor"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-30</div><div class="title">无需代码实现接口之Hasor</div></div></a></div><div><a href="/posts/29715/" title="Java项目构建基础之统一响应"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Java项目构建基础之统一响应</div></div></a></div><div><a href="/posts/56935/" title="Java项目构建基础之统一异常处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190505.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-22</div><div class="title">Java项目构建基础之统一异常处理</div></div></a></div><div><a href="/posts/9610/" title="星际蜗牛Nas折腾记录（一）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190505.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-26</div><div class="title">星际蜗牛Nas折腾记录（一）</div></div></a></div><div><a href="/posts/37RKQXY/" title="项目规划"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190517.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-08</div><div class="title">项目规划</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/04/21/HYeBPIL7vTRX1pZ.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">KTHIRTY</div><div class="author-info__description">惜命的最好途径，是把它淋漓尽致地燃烧</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kthirty"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kthirty" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:5264thirty@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问书站,若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%80%89%E6%8B%A9xxl-job"><span class="toc-number">2.</span> <span class="toc-text"> 为什么要选择XXL-JOB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text"> 基础概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text"> 开始使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%B0%83%E5%BA%A6%E4%B8%AD%E5%BF%83"><span class="toc-number">4.1.</span> <span class="toc-text"> 配置调度中心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%89%A7%E8%A1%8C%E5%99%A8%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.2.</span> <span class="toc-text"> 配置执行器项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%BC%95%E5%85%A5"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 依赖引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 执行器配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">4.2.3.</span> <span class="toc-text"> 执行器组件配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%89%A7%E8%A1%8C%E5%99%A8%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-number">4.2.4.</span> <span class="toc-text"> 创建执行器启动类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8"><span class="toc-number">4.2.5.</span> <span class="toc-text"> 启动应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E5%BA%94%E7%94%A8%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F"><span class="toc-number">4.2.6.</span> <span class="toc-text"> 检查应用是否启动成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8-2"><span class="toc-number">4.3.</span> <span class="toc-text"> 开始使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bean%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%BD%A2%E5%BC%8F"><span class="toc-number">4.3.1.</span> <span class="toc-text"> Bean模式（类形式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bean%E6%A8%A1%E5%BC%8F%E6%96%B9%E6%B3%95%E5%BD%A2%E5%BC%8F"><span class="toc-number">4.3.2.</span> <span class="toc-text"> Bean模式（方法形式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#glue%E6%A8%A1%E5%BC%8Fjava"><span class="toc-number">4.3.3.</span> <span class="toc-text"> GLUE模式(Java)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">4.4.</span> <span class="toc-text"> 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">4.5.</span> <span class="toc-text"> 参考链接</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/Pve1/" title="PVE折腾日记-硬件篇（一）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725211527.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PVE折腾日记-硬件篇（一）"/></a><div class="content"><a class="title" href="/posts/Pve1/" title="PVE折腾日记-硬件篇（一）">PVE折腾日记-硬件篇（一）</a><time datetime="2025-10-13T16:00:00.000Z" title="发表于 2025-10-14 00:00:00">2025-10-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2GDB5A2/" title="Oracle数据恢复"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190505.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oracle数据恢复"/></a><div class="content"><a class="title" href="/posts/2GDB5A2/" title="Oracle数据恢复">Oracle数据恢复</a><time datetime="2024-12-06T16:00:00.000Z" title="发表于 2024-12-07 00:00:00">2024-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/FNP8G0/" title="Mysql创建Schema与用户"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725190505.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mysql创建Schema与用户"/></a><div class="content"><a class="title" href="/posts/FNP8G0/" title="Mysql创建Schema与用户">Mysql创建Schema与用户</a><time datetime="2024-04-21T16:00:00.000Z" title="发表于 2024-04-22 00:00:00">2024-04-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1E4Y9VE/" title="SpringBoot快捷打包与启动脚本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725211527.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot快捷打包与启动脚本"/></a><div class="content"><a class="title" href="/posts/1E4Y9VE/" title="SpringBoot快捷打包与启动脚本">SpringBoot快捷打包与启动脚本</a><time datetime="2024-03-19T16:00:00.000Z" title="发表于 2024-03-20 00:00:00">2024-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2MA9B8A/" title="Java敏感词之DFA算法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/20200725211527.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java敏感词之DFA算法"/></a><div class="content"><a class="title" href="/posts/2MA9B8A/" title="Java敏感词之DFA算法">Java敏感词之DFA算法</a><time datetime="2022-08-30T16:00:00.000Z" title="发表于 2022-08-31 00:00:00">2022-08-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By KTHIRTY</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/kthirty/CDN/js/crash_cheat.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
