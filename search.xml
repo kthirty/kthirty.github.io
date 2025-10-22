@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>PVE折腾日期-网络规划篇（二）</title>
+      <link href="posts/Pve2/"/>
+      <url>posts/Pve2/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="描述"><a class="markdownIt-Anchor" href="#描述"></a> 描述</h2><p>由于我这个机器只有一个网口，而且运营商师傅改桥接有点麻烦。<br />所以整体采用了旁路由的方式，整体虚拟机与主路由在同一网段，维护比较舒服。</p><h2 id="网络架构图"><a class="markdownIt-Anchor" href="#网络架构图"></a> 网络架构图</h2><p><img src="https://cdn.jsdelivr.net/gh/kthirty/CDN/images/202510171351.png" alt="网络架构图" /></p><h2 id="具体-ip-配置"><a class="markdownIt-Anchor" href="#具体-ip-配置"></a> 具体 IP 配置</h2><table><thead><tr><th>机器</th><th>IP</th><th>备注</th></tr></thead><tbody><tr><td>PVE 主机</td><td>192.168.1.100</td><td>实体主机</td></tr><tr><td>OpenWRT</td><td>192.168.1.101</td><td>主要负责网络相关服务（科学上网、DNS、Lucky 服务转发）</td></tr><tr><td>Synology</td><td>192.168.1.102</td><td>文件同步与照片备份</td></tr><tr><td>FnOS</td><td>192.168.1.103</td><td>影视</td></tr><tr><td>Windows 11</td><td>192.168.1.199</td><td>临时远程主机</td></tr><tr><td>LXC Debian</td><td>192.168.1.201</td><td>Docker 服务专用容器</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> 环境搭建 </category>
+          
+          <category> Pve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+            <tag> PVE </tag>
+            
+            <tag> All In One </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> KTHIRTY </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PVE折腾日记-硬件篇（一）</title>
       <link href="posts/Pve1/"/>
       <url>posts/Pve1/</url>
@@ -184,9 +221,9 @@
       
         <tags>
             
-            <tag> KTHIRTY </tag>
-            
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
         </tags>
       
@@ -281,11 +318,11 @@
             
             <tag> Nginx </tag>
             
-            <tag> KTHIRTY </tag>
-            
             <tag> Docker </tag>
             
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
             <tag> SpringCloudAlibaba </tag>
             
@@ -461,15 +498,15 @@
       
         <tags>
             
-            <tag> Nas </tag>
-            
             <tag> Nginx </tag>
             
-            <tag> KTHIRTY </tag>
+            <tag> Nas </tag>
             
             <tag> Docker </tag>
             
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
         </tags>
       
@@ -502,9 +539,9 @@
             
             <tag> Nas </tag>
             
-            <tag> KTHIRTY </tag>
-            
             <tag> Docker </tag>
+            
+            <tag> KTHIRTY </tag>
             
         </tags>
       
@@ -813,37 +850,6 @@
     
     
     <entry>
-      <title>Spring-Import注解源码解析</title>
-      <link href="posts/32817/"/>
-      <url>posts/32817/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1><p>分析SpringBoot启动流程时遇到的<code>@Import</code> 注解，不明所以然，所以先翻一下注解的源码。</p><h1 id="源码"><a class="markdownIt-Anchor" href="#源码"></a> 源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span> <span class="comment">// 类上使用</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span> <span class="comment">// 生命周期</span></span><br><span class="line"><span class="meta">@Documented</span> <span class="comment">// 文档</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@link</span> Configuration <span class="doctag">@Configuration</span>&#125;, &#123;<span class="doctag">@link</span> ImportSelector&#125;,</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125;, or regular component classes to import.</span></span><br><span class="line"><span class="comment">    * 可以配合 Configuration、ImportSelector、ImportBeanDefinitionRegistrar使用</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="使用方式"><a class="markdownIt-Anchor" href="#使用方式"></a> 使用方式</h1><h2 id="简单使用方法"><a class="markdownIt-Anchor" href="#简单使用方法"></a> 简单使用方法</h2><p>这种方式可以直接把类加入到Spring IOC容器</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceImpl.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><p>这种方式很少用，原因有二：</p><ol><li>直接使用<code>@Bean</code>注解代替更加方便</li><li>仅能调用无参构造</li></ol><h2 id="结合importbeandefinitionregistrar接口"><a class="markdownIt-Anchor" href="#结合importbeandefinitionregistrar接口"></a> 结合<code>ImportBeanDefinitionRegistrar</code>接口</h2><h3 id="源码-2"><a class="markdownIt-Anchor" href="#源码-2"></a> 源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   AnnotationMetadata importingClassMetadata,  // 通过这个参数可以拿到类的元数据信息</span></span></span><br><span class="line"><span class="function"><span class="params">   BeanDefinitionRegistry registry, // 通过这个参数可以操作IOC容器</span></span></span><br><span class="line"><span class="function"><span class="params">         BeanNameGenerator importBeanNameGenerator)</span> <span class="comment">// BeanNameGenerator 注入IOC容器的名称</span></span></span><br><span class="line"><span class="function">   </span>&#123; </span><br><span class="line">      registerBeanDefinitions(importingClassMetadata, registry);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="comment">// 同上，少一个参数</span></span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="实现类"><a class="markdownIt-Anchor" href="#实现类"></a> 实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceBeanDefinitionRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata,BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">        BeanDefinitionBuilder userService = BeanDefinitionBuilder.rootBeanDefinition(UserServiceImpl.class);</span><br><span class="line">        <span class="comment">// 这里自行实现，更加灵活</span></span><br><span class="line">        registry.registerBeanDefinition(<span class="string">&quot;userService&quot;</span>, userService.getBeanDefinition());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="使用方式-2"><a class="markdownIt-Anchor" href="#使用方式-2"></a> 使用方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceBeanDefinitionRegistrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><h2 id="结合importselector接口"><a class="markdownIt-Anchor" href="#结合importselector接口"></a> 结合<code>ImportSelector</code>接口</h2><p>相比较与实现<code>ImportBeanDefinitionRegistrar</code>接口之后直接操作Bean容器来说，使用<code>ImportSelector</code>会更加优雅一些，只需要返回需要注入类的全名即可，也可以同时注入多个Bean，Spring 中<code>EnableAutoConfiguration</code>注解就是用的这种方式。</p><h3 id="源码-3"><a class="markdownIt-Anchor" href="#源码-3"></a> 源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportSelector</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 返回类全名即可注入</span></span><br><span class="line">   String[] selectImports(AnnotationMetadata importingClassMetadata);</span><br><span class="line">   <span class="comment">// 传入方法，获取忽略过滤器</span></span><br><span class="line">   <span class="meta">@Nullable</span></span><br><span class="line">   <span class="function"><span class="keyword">default</span> Predicate&lt;String&gt; <span class="title">getExclusionFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="实现类-2"><a class="markdownIt-Anchor" href="#实现类-2"></a> 实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImportSelect</span> <span class="keyword">implements</span> <span class="title">ImportSelector</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123; </span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;UserServiceImpl.class.getName()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="使用方式-3"><a class="markdownIt-Anchor" href="#使用方式-3"></a> 使用方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration()</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceImportSelect.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><h1 id="spring-处理import的源码"><a class="markdownIt-Anchor" href="#spring-处理import的源码"></a> Spring 处理@Import的源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processImports</span><span class="params">(ConfigurationClass configClass, SourceClass currentSourceClass,</span></span></span><br><span class="line"><span class="function"><span class="params">      Collection&lt;SourceClass&gt; importCandidates, Predicate&lt;String&gt; exclusionFilter,</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">boolean</span> checkForCircularImports)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (importCandidates.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (checkForCircularImports &amp;&amp; isChainedImportOnStack(configClass)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.problemReporter.error(<span class="keyword">new</span> CircularImportProblem(configClass, <span class="keyword">this</span>.importStack));</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.importStack.push(configClass);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> (SourceClass candidate : importCandidates) &#123;</span><br><span class="line">            <span class="keyword">if</span> (candidate.isAssignable(ImportSelector.class)) &#123;</span><br><span class="line">               <span class="comment">// Candidate class is an ImportSelector -&gt; delegate to it to determine imports</span></span><br><span class="line">               Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">               ImportSelector selector = ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,</span><br><span class="line">                     <span class="keyword">this</span>.environment, <span class="keyword">this</span>.resourceLoader, <span class="keyword">this</span>.registry);</span><br><span class="line">               Predicate&lt;String&gt; selectorFilter = selector.getExclusionFilter();</span><br><span class="line">               <span class="keyword">if</span> (selectorFilter != <span class="keyword">null</span>) &#123;</span><br><span class="line">                  exclusionFilter = exclusionFilter.or(selectorFilter);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (selector <span class="keyword">instanceof</span> DeferredImportSelector) &#123;</span><br><span class="line">                  <span class="keyword">this</span>.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">else</span> &#123;</span><br><span class="line">                  String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());</span><br><span class="line">                  Collection&lt;SourceClass&gt; importSourceClasses = asSourceClasses(importClassNames, exclusionFilter);</span><br><span class="line">                  processImports(configClass, currentSourceClass, importSourceClasses, exclusionFilter, <span class="keyword">false</span>);</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) &#123;</span><br><span class="line">               <span class="comment">// Candidate class is an ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">               <span class="comment">// delegate to it to register additional bean definitions</span></span><br><span class="line">               Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">               ImportBeanDefinitionRegistrar registrar =</span><br><span class="line">                     ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,</span><br><span class="line">                           <span class="keyword">this</span>.environment, <span class="keyword">this</span>.resourceLoader, <span class="keyword">this</span>.registry);</span><br><span class="line">               configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">               <span class="comment">// process it as an @Configuration class</span></span><br><span class="line">               <span class="keyword">this</span>.importStack.registerImport(</span><br><span class="line">                     currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());</span><br><span class="line">               processConfigurationClass(candidate.asConfigClass(configClass), exclusionFilter);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span> (BeanDefinitionStoreException ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> ex;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(</span><br><span class="line">               <span class="string">&quot;Failed to process import candidates for configuration class [&quot;</span> +</span><br><span class="line">               configClass.getMetadata().getClassName() + <span class="string">&quot;]&quot;</span>, ex);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">finally</span> &#123;</span><br><span class="line">         <span class="keyword">this</span>.importStack.pop();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1><p>最方便的是结合<code>ImportSelector</code>方式，主要作用是使用注解注入<code>Bean</code>到<code>IOC</code>容器</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术 </category>
-          
-          <category> Java </category>
-          
-          <category> Spring </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Spring </tag>
-            
-            <tag> 源码 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>SpringBoot启动流程源码分析（一）</title>
       <link href="posts/2200/"/>
       <url>posts/2200/</url>
@@ -875,6 +881,37 @@
     
     
     <entry>
+      <title>Spring-Import注解源码解析</title>
+      <link href="posts/32817/"/>
+      <url>posts/32817/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1><p>分析SpringBoot启动流程时遇到的<code>@Import</code> 注解，不明所以然，所以先翻一下注解的源码。</p><h1 id="源码"><a class="markdownIt-Anchor" href="#源码"></a> 源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span> <span class="comment">// 类上使用</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span> <span class="comment">// 生命周期</span></span><br><span class="line"><span class="meta">@Documented</span> <span class="comment">// 文档</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@link</span> Configuration <span class="doctag">@Configuration</span>&#125;, &#123;<span class="doctag">@link</span> ImportSelector&#125;,</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125;, or regular component classes to import.</span></span><br><span class="line"><span class="comment">    * 可以配合 Configuration、ImportSelector、ImportBeanDefinitionRegistrar使用</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="使用方式"><a class="markdownIt-Anchor" href="#使用方式"></a> 使用方式</h1><h2 id="简单使用方法"><a class="markdownIt-Anchor" href="#简单使用方法"></a> 简单使用方法</h2><p>这种方式可以直接把类加入到Spring IOC容器</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceImpl.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><p>这种方式很少用，原因有二：</p><ol><li>直接使用<code>@Bean</code>注解代替更加方便</li><li>仅能调用无参构造</li></ol><h2 id="结合importbeandefinitionregistrar接口"><a class="markdownIt-Anchor" href="#结合importbeandefinitionregistrar接口"></a> 结合<code>ImportBeanDefinitionRegistrar</code>接口</h2><h3 id="源码-2"><a class="markdownIt-Anchor" href="#源码-2"></a> 源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   AnnotationMetadata importingClassMetadata,  // 通过这个参数可以拿到类的元数据信息</span></span></span><br><span class="line"><span class="function"><span class="params">   BeanDefinitionRegistry registry, // 通过这个参数可以操作IOC容器</span></span></span><br><span class="line"><span class="function"><span class="params">         BeanNameGenerator importBeanNameGenerator)</span> <span class="comment">// BeanNameGenerator 注入IOC容器的名称</span></span></span><br><span class="line"><span class="function">   </span>&#123; </span><br><span class="line">      registerBeanDefinitions(importingClassMetadata, registry);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="comment">// 同上，少一个参数</span></span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="实现类"><a class="markdownIt-Anchor" href="#实现类"></a> 实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceBeanDefinitionRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata,BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">        BeanDefinitionBuilder userService = BeanDefinitionBuilder.rootBeanDefinition(UserServiceImpl.class);</span><br><span class="line">        <span class="comment">// 这里自行实现，更加灵活</span></span><br><span class="line">        registry.registerBeanDefinition(<span class="string">&quot;userService&quot;</span>, userService.getBeanDefinition());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="使用方式-2"><a class="markdownIt-Anchor" href="#使用方式-2"></a> 使用方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceBeanDefinitionRegistrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><h2 id="结合importselector接口"><a class="markdownIt-Anchor" href="#结合importselector接口"></a> 结合<code>ImportSelector</code>接口</h2><p>相比较与实现<code>ImportBeanDefinitionRegistrar</code>接口之后直接操作Bean容器来说，使用<code>ImportSelector</code>会更加优雅一些，只需要返回需要注入类的全名即可，也可以同时注入多个Bean，Spring 中<code>EnableAutoConfiguration</code>注解就是用的这种方式。</p><h3 id="源码-3"><a class="markdownIt-Anchor" href="#源码-3"></a> 源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportSelector</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 返回类全名即可注入</span></span><br><span class="line">   String[] selectImports(AnnotationMetadata importingClassMetadata);</span><br><span class="line">   <span class="comment">// 传入方法，获取忽略过滤器</span></span><br><span class="line">   <span class="meta">@Nullable</span></span><br><span class="line">   <span class="function"><span class="keyword">default</span> Predicate&lt;String&gt; <span class="title">getExclusionFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="实现类-2"><a class="markdownIt-Anchor" href="#实现类-2"></a> 实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImportSelect</span> <span class="keyword">implements</span> <span class="title">ImportSelector</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123; </span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;UserServiceImpl.class.getName()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="使用方式-3"><a class="markdownIt-Anchor" href="#使用方式-3"></a> 使用方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration()</span></span><br><span class="line"><span class="meta">@Import(value=&#123;UserServiceImportSelect.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure><h1 id="spring-处理import的源码"><a class="markdownIt-Anchor" href="#spring-处理import的源码"></a> Spring 处理@Import的源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processImports</span><span class="params">(ConfigurationClass configClass, SourceClass currentSourceClass,</span></span></span><br><span class="line"><span class="function"><span class="params">      Collection&lt;SourceClass&gt; importCandidates, Predicate&lt;String&gt; exclusionFilter,</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">boolean</span> checkForCircularImports)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (importCandidates.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (checkForCircularImports &amp;&amp; isChainedImportOnStack(configClass)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.problemReporter.error(<span class="keyword">new</span> CircularImportProblem(configClass, <span class="keyword">this</span>.importStack));</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.importStack.push(configClass);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> (SourceClass candidate : importCandidates) &#123;</span><br><span class="line">            <span class="keyword">if</span> (candidate.isAssignable(ImportSelector.class)) &#123;</span><br><span class="line">               <span class="comment">// Candidate class is an ImportSelector -&gt; delegate to it to determine imports</span></span><br><span class="line">               Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">               ImportSelector selector = ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,</span><br><span class="line">                     <span class="keyword">this</span>.environment, <span class="keyword">this</span>.resourceLoader, <span class="keyword">this</span>.registry);</span><br><span class="line">               Predicate&lt;String&gt; selectorFilter = selector.getExclusionFilter();</span><br><span class="line">               <span class="keyword">if</span> (selectorFilter != <span class="keyword">null</span>) &#123;</span><br><span class="line">                  exclusionFilter = exclusionFilter.or(selectorFilter);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (selector <span class="keyword">instanceof</span> DeferredImportSelector) &#123;</span><br><span class="line">                  <span class="keyword">this</span>.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">else</span> &#123;</span><br><span class="line">                  String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());</span><br><span class="line">                  Collection&lt;SourceClass&gt; importSourceClasses = asSourceClasses(importClassNames, exclusionFilter);</span><br><span class="line">                  processImports(configClass, currentSourceClass, importSourceClasses, exclusionFilter, <span class="keyword">false</span>);</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) &#123;</span><br><span class="line">               <span class="comment">// Candidate class is an ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">               <span class="comment">// delegate to it to register additional bean definitions</span></span><br><span class="line">               Class&lt;?&gt; candidateClass = candidate.loadClass();</span><br><span class="line">               ImportBeanDefinitionRegistrar registrar =</span><br><span class="line">                     ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,</span><br><span class="line">                           <span class="keyword">this</span>.environment, <span class="keyword">this</span>.resourceLoader, <span class="keyword">this</span>.registry);</span><br><span class="line">               configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar -&gt;</span></span><br><span class="line">               <span class="comment">// process it as an @Configuration class</span></span><br><span class="line">               <span class="keyword">this</span>.importStack.registerImport(</span><br><span class="line">                     currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());</span><br><span class="line">               processConfigurationClass(candidate.asConfigClass(configClass), exclusionFilter);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span> (BeanDefinitionStoreException ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> ex;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(</span><br><span class="line">               <span class="string">&quot;Failed to process import candidates for configuration class [&quot;</span> +</span><br><span class="line">               configClass.getMetadata().getClassName() + <span class="string">&quot;]&quot;</span>, ex);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">finally</span> &#123;</span><br><span class="line">         <span class="keyword">this</span>.importStack.pop();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1><p>最方便的是结合<code>ImportSelector</code>方式，主要作用是使用注解注入<code>Bean</code>到<code>IOC</code>容器</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> Java </category>
+          
+          <category> Spring </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 源码 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RocketMQ实践篇之集成SpringBoot</title>
       <link href="posts/38574/"/>
       <url>posts/38574/</url>
@@ -895,9 +932,9 @@
             
             <tag> 消息队列 </tag>
             
-            <tag> KTHIRTY </tag>
-            
             <tag> Docker </tag>
+            
+            <tag> KTHIRTY </tag>
             
         </tags>
       
@@ -928,11 +965,11 @@
             
             <tag> Hasor </tag>
             
-            <tag> KTHIRTY </tag>
-            
             <tag> Docker </tag>
             
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
             <tag> 源码 </tag>
             
@@ -1182,15 +1219,15 @@
       
         <tags>
             
-            <tag> Elasticsearch </tag>
-            
             <tag> 架构 </tag>
             
-            <tag> KTHIRTY </tag>
+            <tag> Elasticsearch </tag>
             
             <tag> Docker </tag>
             
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
             <tag> 源码 </tag>
             
@@ -1285,15 +1322,15 @@
       
         <tags>
             
-            <tag> 任务调度 </tag>
-            
             <tag> 架构 </tag>
             
-            <tag> KTHIRTY </tag>
+            <tag> 任务调度 </tag>
             
             <tag> Docker </tag>
             
             <tag> MySQL </tag>
+            
+            <tag> KTHIRTY </tag>
             
             <tag> 源码 </tag>
             
@@ -1545,41 +1582,6 @@
     
     <entry>
       <title>Centos7-Mysql5</title>
-      <link href="posts/568a/"/>
-      <url>posts/568a/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Centos7下已tar包形式安装MySQL5.6</p><h1 id="删除centos7-自带的mariadb如果没有直接跳过"><a class="markdownIt-Anchor" href="#删除centos7-自带的mariadb如果没有直接跳过"></a> 删除Centos7 自带的Mariadb（如果没有直接跳过）</h1><p>rpm -qa|grep mariadb<br />rpm -e --nodeps mariadb-libs-5.5.44-2.el7.centos.x86_64</p><h1 id="删除etc目录下的mycnf文件"><a class="markdownIt-Anchor" href="#删除etc目录下的mycnf文件"></a> #删除etc目录下的my.cnf文件</h1><p>rm /etc/my.cnf</p><p>#检查mysql是否存在<br />rpm -qa | grep mysql</p><p>#检查mysql组和用户是否存在，如无创建<br />cat /etc/group | grep mysql<br />cat /etc/passwd | grep mysql</p><h1 id="创建mysql-组"><a class="markdownIt-Anchor" href="#创建mysql-组"></a> 创建mysql 组</h1><p>groupadd mysql<br />#创建一个用户名为mysql的用户并加入mysql用户组<br />useradd -g mysql mysql</p><h1 id="下载mysql安装包"><a class="markdownIt-Anchor" href="#下载mysql安装包"></a> 下载mysql安装包</h1><p>wget <a href="https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/">https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/</a></p><h1 id="解压并修改名称安装到usrlocal目录下"><a class="markdownIt-Anchor" href="#解压并修改名称安装到usrlocal目录下"></a> 解压并修改名称（安装到/usr/local/目录下）</h1><p>tar -zxvf mysql-5.6.46-linux-glibc2.12-x86_64.tar.gz<br />mv mysql-5.6.46-linux-glibc2.12-x86_64 mysql</p><h1 id="创建data目录如果有就不用了"><a class="markdownIt-Anchor" href="#创建data目录如果有就不用了"></a> 创建data目录（如果有就不用了）</h1><p>cd /usr/local/mysql<br />mkdir data</p><h1 id="更改文件权限到mysqlmysql-下"><a class="markdownIt-Anchor" href="#更改文件权限到mysqlmysql-下"></a> 更改文件权限到mysql:mysql 下</h1><p>chown -R mysql:mysql /usr/local/mysql</p><h1 id="在etc下创建mycnf-文件内容如下"><a class="markdownIt-Anchor" href="#在etc下创建mycnf-文件内容如下"></a> 在/etc下创建my.cnf 文件(内容如下)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set&#x3D;utf8 </span><br><span class="line">[mysqld]</span><br><span class="line">skip-name-resolve</span><br><span class="line">#设置3306端口</span><br><span class="line">port &#x3D; 3306 </span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir&#x3D;&#x2F;var&#x2F;mysql57</span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir&#x3D;&#x2F;var&#x2F;mysql57&#x2F;data</span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections&#x3D;200</span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server&#x3D;utf8</span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine&#x3D;INNODB </span><br><span class="line">lower_case_table_names&#x3D;1</span><br><span class="line">max_allowed_packet&#x3D;16M</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="安装并初始化"><a class="markdownIt-Anchor" href="#安装并初始化"></a> 安装并初始化</h1><p>cd /usr/local/mysql<br />./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data<br />cp ./support-files/mysql.server /etc/init.d/mysqld<br />chown 777 /etc/my.cnf<br />chmod +x /etc/init.d/mysqld</p><h1 id="启动mysql"><a class="markdownIt-Anchor" href="#启动mysql"></a> 启动mysql</h1><p>/etc/init.d/mysqld restart</p><h1 id="修改密码在mysql命令行执行"><a class="markdownIt-Anchor" href="#修改密码在mysql命令行执行"></a> 修改密码（在mysql命令行执行）</h1><p>set PASSWORD = PASSWORD(‘111111’);<br />flush privileges;</p><h1 id="添加远程访问权限mysql命令行执行"><a class="markdownIt-Anchor" href="#添加远程访问权限mysql命令行执行"></a> 添加远程访问权限（Mysql命令行执行）</h1><p>use mysql<br />update user set host=’%’ where user=‘root’;<br />/bin/systemctl restart  mysql.service</p><h1 id="将mysql添加到bin中方便使用"><a class="markdownIt-Anchor" href="#将mysql添加到bin中方便使用"></a> 将mysql添加到bin中，方便使用</h1><p>ln -s /usr/local/mysql/bin/mysql   /usr/bin/mysql</p><h1 id="备注"><a class="markdownIt-Anchor" href="#备注"></a> 备注</h1><p>安装方式没有初始密码，mysql -u root -p 不需要输入密码，直接回车</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术 </category>
-          
-          <category> 环境搭建 </category>
-          
-          <category> MySQL </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Centos </tag>
-            
-            <tag> Mysql </tag>
-            
-            <tag> MySQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Centos7-Mysql5</title>
       <link href="posts/6064/"/>
       <url>posts/6064/</url>
       
@@ -1601,9 +1603,44 @@
             
             <tag> 架构 </tag>
             
+            <tag> Mysql </tag>
+            
             <tag> Centos </tag>
             
+            <tag> MySQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Centos7-Mysql5</title>
+      <link href="posts/568a/"/>
+      <url>posts/568a/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Centos7下已tar包形式安装MySQL5.6</p><h1 id="删除centos7-自带的mariadb如果没有直接跳过"><a class="markdownIt-Anchor" href="#删除centos7-自带的mariadb如果没有直接跳过"></a> 删除Centos7 自带的Mariadb（如果没有直接跳过）</h1><p>rpm -qa|grep mariadb<br />rpm -e --nodeps mariadb-libs-5.5.44-2.el7.centos.x86_64</p><h1 id="删除etc目录下的mycnf文件"><a class="markdownIt-Anchor" href="#删除etc目录下的mycnf文件"></a> #删除etc目录下的my.cnf文件</h1><p>rm /etc/my.cnf</p><p>#检查mysql是否存在<br />rpm -qa | grep mysql</p><p>#检查mysql组和用户是否存在，如无创建<br />cat /etc/group | grep mysql<br />cat /etc/passwd | grep mysql</p><h1 id="创建mysql-组"><a class="markdownIt-Anchor" href="#创建mysql-组"></a> 创建mysql 组</h1><p>groupadd mysql<br />#创建一个用户名为mysql的用户并加入mysql用户组<br />useradd -g mysql mysql</p><h1 id="下载mysql安装包"><a class="markdownIt-Anchor" href="#下载mysql安装包"></a> 下载mysql安装包</h1><p>wget <a href="https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/">https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/</a></p><h1 id="解压并修改名称安装到usrlocal目录下"><a class="markdownIt-Anchor" href="#解压并修改名称安装到usrlocal目录下"></a> 解压并修改名称（安装到/usr/local/目录下）</h1><p>tar -zxvf mysql-5.6.46-linux-glibc2.12-x86_64.tar.gz<br />mv mysql-5.6.46-linux-glibc2.12-x86_64 mysql</p><h1 id="创建data目录如果有就不用了"><a class="markdownIt-Anchor" href="#创建data目录如果有就不用了"></a> 创建data目录（如果有就不用了）</h1><p>cd /usr/local/mysql<br />mkdir data</p><h1 id="更改文件权限到mysqlmysql-下"><a class="markdownIt-Anchor" href="#更改文件权限到mysqlmysql-下"></a> 更改文件权限到mysql:mysql 下</h1><p>chown -R mysql:mysql /usr/local/mysql</p><h1 id="在etc下创建mycnf-文件内容如下"><a class="markdownIt-Anchor" href="#在etc下创建mycnf-文件内容如下"></a> 在/etc下创建my.cnf 文件(内容如下)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set&#x3D;utf8 </span><br><span class="line">[mysqld]</span><br><span class="line">skip-name-resolve</span><br><span class="line">#设置3306端口</span><br><span class="line">port &#x3D; 3306 </span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir&#x3D;&#x2F;var&#x2F;mysql57</span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir&#x3D;&#x2F;var&#x2F;mysql57&#x2F;data</span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections&#x3D;200</span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server&#x3D;utf8</span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine&#x3D;INNODB </span><br><span class="line">lower_case_table_names&#x3D;1</span><br><span class="line">max_allowed_packet&#x3D;16M</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="安装并初始化"><a class="markdownIt-Anchor" href="#安装并初始化"></a> 安装并初始化</h1><p>cd /usr/local/mysql<br />./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data<br />cp ./support-files/mysql.server /etc/init.d/mysqld<br />chown 777 /etc/my.cnf<br />chmod +x /etc/init.d/mysqld</p><h1 id="启动mysql"><a class="markdownIt-Anchor" href="#启动mysql"></a> 启动mysql</h1><p>/etc/init.d/mysqld restart</p><h1 id="修改密码在mysql命令行执行"><a class="markdownIt-Anchor" href="#修改密码在mysql命令行执行"></a> 修改密码（在mysql命令行执行）</h1><p>set PASSWORD = PASSWORD(‘111111’);<br />flush privileges;</p><h1 id="添加远程访问权限mysql命令行执行"><a class="markdownIt-Anchor" href="#添加远程访问权限mysql命令行执行"></a> 添加远程访问权限（Mysql命令行执行）</h1><p>use mysql<br />update user set host=’%’ where user=‘root’;<br />/bin/systemctl restart  mysql.service</p><h1 id="将mysql添加到bin中方便使用"><a class="markdownIt-Anchor" href="#将mysql添加到bin中方便使用"></a> 将mysql添加到bin中，方便使用</h1><p>ln -s /usr/local/mysql/bin/mysql   /usr/bin/mysql</p><h1 id="备注"><a class="markdownIt-Anchor" href="#备注"></a> 备注</h1><p>安装方式没有初始密码，mysql -u root -p 不需要输入密码，直接回车</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> 环境搭建 </category>
+          
+          <category> MySQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
             <tag> Mysql </tag>
+            
+            <tag> Centos </tag>
             
             <tag> MySQL </tag>
             
